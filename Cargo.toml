@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "cli",
+    "archon_kernel",
+]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+authors = ["R.W. Yett <RY>"]
+license = "Apache-2.0"
