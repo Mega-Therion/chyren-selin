@@ -6,4 +6,5 @@ pub mod adccl_gate;
 pub mod basepoint;
 pub mod provider;
 
-pub use adccl_gate::{compute_chiral_invariant, AdcclGate, CHIRAL_FLOOR};
+pub use adccl_gate::{compute_chiral_invariant, AdcclGate, VerificationReport, CHIRAL_FLOOR};
+pub use provider::AdaptiveResilientFormatter;

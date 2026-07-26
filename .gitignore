@@ -1,0 +1,10 @@
+# Rust build artifacts
+/target
+target/
+Cargo.lock
+
+# User-generated SELIN data (never commit personal identity data)
+.selin/
+
+# Docs build
+docs/build/

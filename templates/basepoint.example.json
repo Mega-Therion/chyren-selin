@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "seal": "<64-char hex HMAC-SHA256 of your identity directives + local entropy>",
+  "created_at": "<ISO-8601 timestamp>",
+  "directives_hint": "Comma-separated values you provided (stored as hint only — actual values are never stored here)",
+  "endpoint": "http://localhost:11434"
+}

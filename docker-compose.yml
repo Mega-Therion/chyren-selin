@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  # ARCHON governance node — wraps the selin CLI as a long-running service
+  selin-archon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: selin-archon
+    depends_on:
+      local-llm:
+        condition: service_healthy
+    environment:
+      MODEL_ENDPOINT: http://local-llm:11434
+      ADCCL_THRESHOLD: "0.7071"
+    volumes:
+      - selin_data:/data/selin
+    ports:
+      - "8080:8080"
+    command: ["preflight"]
+    restart: on-failure
+
+  # Local LLM node (Ollama) — serves the model endpoint
+  local-llm:
+    image: ollama/ollama:latest
+    container_name: selin-local-llm
+    volumes:
+      - ollama_storage:/root/.ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  ollama_storage:
+    name: ollama_storage
+  selin_data:
+    name: selin_data
