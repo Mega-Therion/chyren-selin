@@ -27,12 +27,33 @@ Chyren SELIN is an open-source **Reflect-It-Yourself Unit (RIYU)** designed for 
 ```bash
 docker compose up -d
 ```
-This boots ARCHON alongside a local Ollama instance pre-configured for ADCCL governance.
+This boots the ARCHON **HTTP server** alongside a local Ollama instance, pulls the
+default model automatically, and waits until both are healthy. Then:
 
-### Building & Running CLI
+```bash
+# Liveness
+curl localhost:8080/health
+
+# Govern a prompt (returns the ADCCL verdict + output only if it clears the gate)
+curl -sX POST localhost:8080/v1/govern \
+  -H 'content-type: application/json' \
+  -d '{"prompt": "Explain the ADCCL chiral invariant."}'
+
+# Retrieve the proof trace for a run
+curl localhost:8080/v1/audit/<run_id>
+```
+
+### Building & Running the CLI
 ```bash
 cargo build --release
-./target/release/selin init
+./target/release/selin init            # create your identity basepoint
+./target/release/selin run "…"         # govern one prompt from the CLI
+./target/release/selin serve --port 8080   # run the HTTP server directly
+```
+
+### Verifying a build
+```bash
+./scripts/check.sh   # fmt + clippy (deny warnings) + tests
 ```
 
 ---
@@ -49,17 +70,19 @@ Honest accounting of what is implemented today versus named/aspirational, so the
   rejects the output. It no longer defaults to passing.
 * **Three-tier action gate.** Prompts are risk-classified before execution;
   severe intent is vetoed unless the operator binds `SELIN_SOVEREIGN_SIGNOFF`.
-* **Identity seal integrity.** The basepoint seal is an HMAC-SHA256 — this
-  provides *integrity/authenticity*, i.e. tamper-evidence, **not
-  confidentiality**.
+* **HTTP governance server.** `selin serve` runs a real async (tokio/axum)
+  service — `GET /health`, `POST /v1/govern`, `GET /v1/audit/:run_id` — with a
+  concurrency cap and per-request timeout. `docker compose up` runs it, not a
+  one-shot preflight.
+* **CSPRNG + KDF seal entropy.** The basepoint seal draws entropy from the OS
+  CSPRNG and derives its key via HKDF-SHA256. The seal is an HMAC — this provides
+  *integrity/authenticity* (tamper-evidence), **not confidentiality**.
 
 **Not yet implemented (named but pending — do not rely on these):**
 * **At-rest encryption.** The myelin SQLite store is currently plaintext. The
   "Encrypted" in SELIN is a goal (SQLCipher), not a current property.
-* **Hardware-anchored keys / TPM.** Not integrated. Seal entropy derivation is
-  being hardened (CSPRNG + KDF) — do not treat the seal as secret-grade yet.
-* **HTTP service.** `docker compose up` currently runs `preflight`; a real
-  `axum` server (`/health`, `/v1/govern`, `/v1/audit/:id`) is the next milestone.
+* **Hardware-anchored keys / TPM.** Not integrated — do not treat the seal as
+  secret-grade; it binds identity and detects tampering, nothing more.
 
 **On the χ formula.** `χ = √[(V² + (1−J)²)/2]` and the `1/√2` floor are a
 *design convention* of this project (an L2 distance of the `(V, 1−J)` state from
