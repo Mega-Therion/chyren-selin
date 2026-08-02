@@ -10,6 +10,7 @@ pub mod three_tier_gate;
 pub mod verifier;
 
 pub use adccl_gate::{compute_chiral_invariant, AdcclGate, VerificationReport, CHIRAL_FLOOR};
+pub use basepoint::{generate_basepoint_seal, generate_entropy, verify_basepoint_seal};
 pub use provider::AdaptiveResilientFormatter;
 pub use risk::classify_prompt;
 pub use three_tier_gate::{ActionEvaluation, ActionSecurityLevel, ThreeTierGate, Tier3SignOff};
