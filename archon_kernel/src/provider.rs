@@ -1,5 +1,12 @@
 use regex::Regex;
 use serde_json::Value;
+use std::sync::OnceLock;
+
+/// Markdown-fence extractor, compiled once (was rebuilt on every call).
+fn fence_re() -> &'static Regex {
+    static RE: OnceLock<Regex> = OnceLock::new();
+    RE.get_or_init(|| Regex::new(r"(?s)```(?:json)?\s*(.*?)\s*```").unwrap())
+}
 
 pub struct AdaptiveResilientFormatter;
 
@@ -13,8 +20,7 @@ impl AdaptiveResilientFormatter {
         }
 
         // Stage 2: Strip Markdown Fences (```json ... ```)
-        let fence_re = Regex::new(r"(?s)```(?:json)?\s*(.*?)\s*```").unwrap();
-        if let Some(captures) = fence_re.captures(trimmed) {
+        if let Some(captures) = fence_re().captures(trimmed) {
             let extracted = captures.get(1).unwrap().as_str().trim();
             if let Ok(v) = serde_json::from_str::<Value>(extracted) {
                 return Ok(v);
