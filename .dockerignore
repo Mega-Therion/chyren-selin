@@ -1,0 +1,15 @@
+# Keep the build context small — COPY . . was pulling all of this in.
+.git
+.github
+target
+**/target
+*.md
+docs
+scripts
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+# Local runtime state
+.selin
+data

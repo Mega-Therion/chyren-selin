@@ -75,8 +75,7 @@ struct AuditRecord {
 
 fn render_trace(r: &AuditRecord) {
     // Re-compute χ from V and J to verify the stored value (transparency check)
-    let recomputed_chi =
-        ((r.v_score.powi(2) + (1.0 - r.j_penalty).powi(2)) / 2.0).sqrt();
+    let recomputed_chi = ((r.v_score.powi(2) + (1.0 - r.j_penalty).powi(2)) / 2.0).sqrt();
     let chi_matches = (recomputed_chi - r.chi_invariant).abs() < 1e-10;
 
     println!("  ┌─ PROOF TRACE ───────────────────────────────────────────────┐");
@@ -85,25 +84,18 @@ fn render_trace(r: &AuditRecord) {
     println!("  │  Prompt Hash: {}", r.prompt_hash);
     println!("  │  Model:       {}", r.model_endpoint);
     println!("  ├─ ADCCL COMPUTATION ──────────────────────────────────────────");
-    println!(
-        "  │  Formula: χ = √[(V² + (1-J)²) / 2]"
-    );
-    println!(
-        "  │  V_score:    {:.10}",
-        r.v_score
-    );
-    println!(
-        "  │  J_penalty:  {:.10}",
-        r.j_penalty
-    );
-    println!(
-        "  │  χ_stored:   {:.10}",
-        r.chi_invariant
-    );
+    println!("  │  Formula: χ = √[(V² + (1-J)²) / 2]");
+    println!("  │  V_score:    {:.10}", r.v_score);
+    println!("  │  J_penalty:  {:.10}", r.j_penalty);
+    println!("  │  χ_stored:   {:.10}", r.chi_invariant);
     println!(
         "  │  χ_recomputed: {:.10}  [{}]",
         recomputed_chi,
-        if chi_matches { "✓ verified" } else { "✗ MISMATCH — store may be corrupted" }
+        if chi_matches {
+            "✓ verified"
+        } else {
+            "✗ MISMATCH — store may be corrupted"
+        }
     );
     println!("  │  Threshold:  0.7071067811865476 (1/√2)");
     println!("  ├─ VERDICT ────────────────────────────────────────────────────");
@@ -113,9 +105,7 @@ fn render_trace(r: &AuditRecord) {
             r.chi_invariant
         );
     } else {
-        println!(
-            "  │  ✗ REJECTED — ChiralViolation"
-        );
+        println!("  │  ✗ REJECTED — ChiralViolation");
         if let Some(reason) = &r.rejection_reason {
             println!("  │  Reason: {}", reason);
         }

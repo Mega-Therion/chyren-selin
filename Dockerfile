@@ -20,10 +20,13 @@ WORKDIR /app
 COPY --from=builder /build/target/release/selin /app/selin
 COPY templates/ /app/templates/
 
-# Default environment — override at runtime
+# Default environment — override at runtime.
 ENV MODEL_ENDPOINT=http://local-llm:11434
 ENV ADCCL_THRESHOLD=0.7071
-ENV SELIN_DATA_DIR=/data/selin
+# The CLI persists identity + the myelin store under $HOME/.selin. Point HOME at
+# the mounted data volume so state survives container restarts. (SELIN_DATA_DIR
+# was set here but never read by the code — removed.)
+ENV HOME=/data/selin
 
 RUN mkdir -p /data/selin
 

@@ -65,11 +65,13 @@ mod tests {
 
     #[test]
     fn test_reference_fixture_table() {
-        // Shared {V, J} -> χ reference table test
+        // Shared {V, J} -> χ reference table test. The 1/√2 row is the on-floor
+        // fixed point (V = 1/√2, J = 1 - 1/√2 ⇒ χ = 1/√2).
+        let inv_sqrt2 = std::f64::consts::FRAC_1_SQRT_2;
         let fixtures = vec![
             (1.0, 0.0, 1.0),
             (0.9, 0.1, 0.9000),
-            (0.7071067811865476, 0.2928932188134524, 0.7071067811865476),
+            (inv_sqrt2, 1.0 - inv_sqrt2, inv_sqrt2),
             (0.5, 0.5, 0.5),
             (0.0, 1.0, 0.0),
         ];
@@ -79,7 +81,10 @@ mod tests {
             assert!(
                 (chi - expected_chi).abs() < 1e-4,
                 "Fixture fail for V={}, J={}: got {}, expected {}",
-                v, j, chi, expected_chi
+                v,
+                j,
+                chi,
+                expected_chi
             );
         }
     }
