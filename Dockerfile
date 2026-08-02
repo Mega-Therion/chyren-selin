@@ -1,4 +1,4 @@
-FROM rust:1.79-slim AS builder
+FROM rust:1.83-slim AS builder
 
 RUN apt-get update && apt-get install -y \
     pkg-config \
@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     libssl3 \
     sqlite3 \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -32,5 +33,11 @@ RUN mkdir -p /data/selin
 
 EXPOSE 8080
 
+# Liveness: the server answers GET /health once it's up.
+HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=5 \
+    CMD curl -fsS http://localhost:8080/health || exit 1
+
 ENTRYPOINT ["/app/selin"]
-CMD ["preflight"]
+# Run the long-running HTTP governance server (was `preflight`, which ran once
+# and exited — the container then crash-looped under restart: on-failure).
+CMD ["serve", "--port", "8080"]

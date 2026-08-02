@@ -18,7 +18,29 @@ All notable changes to ARCHON / SELIN. Format loosely follows
 - `provider.rs`: fence regex compiled once (`OnceLock`), not per call.
 - Audit log stores 2000 chars of output (was 200).
 
-### Added
+### Added — HTTP service + async
+- **`selin serve`** — a real async (tokio + axum) HTTP governance server:
+  `GET /health`, `POST /v1/govern`, `GET /v1/audit/:run_id`. Concurrency is
+  capped by a semaphore (sheds load with 503) and each govern call is bounded by
+  a timeout. `docker compose up` now runs it, with a `/health` healthcheck and a
+  one-shot init container that auto-pulls the default model.
+- **Async migration** — the whole request path moved off `reqwest::blocking` to
+  async reqwest; the model call gained bounded retry with exponential backoff.
+- **Shared pipeline** — `selin run` and the server both call one `govern()` so
+  they behave identically.
+- **Integration tests** — subprocess tests of the built binary: fail-closed on an
+  unreachable endpoint, and CLI surface.
+
+### Security — seal & init hardening
+- Seal entropy now comes from the OS CSPRNG with an HKDF-SHA256 key derivation
+  (was `SHA256("hostname:timestamp_ns")`, brute-forceable). The random salt is
+  stored (v2 basepoint) so the seal verifies; the `directives_hint` plaintext
+  leak is removed.
+- `init` is `Result`-based (no `.expect` panics) and refuses to silently clobber
+  an existing identity — re-init requires `SELIN_FORCE_REINIT=1` (was a silent
+  `INSERT OR IGNORE` that kept the old seal).
+
+### Added — tooling
 - Self-owned quality gate `scripts/check.sh` (fmt + `clippy -D warnings` +
   test). Run locally or wire as a `pre-push` hook — no CI platform required.
 - `.dockerignore`; Dockerfile persists state to the mounted volume via `HOME`;
@@ -29,19 +51,12 @@ All notable changes to ARCHON / SELIN. Format loosely follows
 
 Ordered by priority.
 
-1. **axum HTTP server** — `/health`, `POST /v1/govern`, `GET /v1/audit/:id`, so
-   `docker compose up` serves a real API instead of running `preflight` once.
-2. **At-rest encryption** — SQLCipher for the myelin store, so "Encrypted" is
-   true rather than aspirational.
-3. **tokio async** — replace `reqwest::blocking` for concurrent request handling.
-4. **Entropy/KDF hardening** — CSPRNG + HKDF/Argon2 for the identity seal;
-   remove the `hostname:timestamp` derivation and the `directives_hint` leak.
-5. **Robust init** — `Result`-based error handling (no `.expect` panics);
-   re-init updates or warns instead of silently keeping the old seal.
-6. **Second-verifier / retrieval option** — allow a distinct verifier model or a
+1. **At-rest encryption** — SQLCipher for the myelin store, so "Encrypted" is
+   true rather than aspirational. (The one remaining 🔴 from the review.)
+2. **Second-verifier / retrieval option** — allow a distinct verifier model or a
    retrieval-augmented fact check for `v_score`, not just a second prompt.
-7. Docker healthcheck + model auto-pull; integration tests; export/backup for the
-   myelin store.
+3. **Hardware-anchored keys / TPM** — bind the seal to hardware.
+4. Export/backup + migration for the myelin store; multi-model routing/ensemble.
 
 ## [1.0.0]
 - Initial public release: ADCCL chiral-invariant gate, basepoint seal, CLI

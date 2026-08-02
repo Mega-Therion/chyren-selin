@@ -24,15 +24,15 @@ pub fn basepoint_path() -> PathBuf {
 }
 
 /// Public entry point. Prints a friendly error instead of panicking on failure.
-pub fn execute_init() {
-    if let Err(e) = run_init() {
+pub async fn execute_init() {
+    if let Err(e) = run_init().await {
         eprintln!("\n  ✗ Initialization failed: {e}");
         eprintln!("    Nothing was overwritten. Fix the issue above and re-run `selin init`.");
         std::process::exit(1);
     }
 }
 
-fn run_init() -> Result<(), String> {
+async fn run_init() -> Result<(), String> {
     println!("╔══════════════════════════════════════════════════════════════╗");
     println!("║     CHYREN SELIN Series (ARCHON v1.0) — Init Wizard          ║");
     println!("║     Reflect-It-Yourself Unit (RIYU) Sovereign Onboarding     ║");
@@ -98,7 +98,7 @@ fn run_init() -> Result<(), String> {
 
     // Step 3: Preflight probe (non-fatal).
     println!("\n[3/4] Running Model Capability Preflight Diagnostic…");
-    let preflight = execute_preflight_probe(&endpoint);
+    let preflight = execute_preflight_probe(&endpoint).await;
     match &preflight {
         PreflightResult::Pass { model, latency_ms } => {
             println!("      [✓] Model '{model}' responded in {latency_ms}ms — gate cleared.");
