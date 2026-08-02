@@ -19,7 +19,8 @@ All notable changes to ARCHON / SELIN. Format loosely follows
 - Audit log stores 2000 chars of output (was 200).
 
 ### Added
-- CI: `cargo fmt` + `clippy -D warnings` + `test` on push/PR.
+- Self-owned quality gate `scripts/check.sh` (fmt + `clippy -D warnings` +
+  test). Run locally or wire as a `pre-push` hook — no CI platform required.
 - `.dockerignore`; Dockerfile persists state to the mounted volume via `HOME`;
   removed the dead `SELIN_DATA_DIR` env.
 - Honest **Security & Implementation Status** section in the README.
