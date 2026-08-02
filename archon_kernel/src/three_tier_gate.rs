@@ -85,7 +85,9 @@ impl ThreeTierGate {
             return ActionEvaluation {
                 level: ActionSecurityLevel::Tier2Warning,
                 permitted: true,
-                prompt_message: Some("TIER 2 ADVISORY: High-risk operation authorized.".to_string()),
+                prompt_message: Some(
+                    "TIER 2 ADVISORY: High-risk operation authorized.".to_string(),
+                ),
             };
         }
 
