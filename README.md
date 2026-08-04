@@ -1,49 +1,67 @@
-# Chyren SELIN Series (ARCHON v1.0)
+# ⟪ CHYREN SELIN / ARCHON ⟫
 ## Sovereign Encrypted Localized Identity Nestor
+
+![Chyren SELIN Hero](Visuals/hero.png)
 
 > **"THIS IS NOT A CHATBOT — IT IS A SOVEREIGN REASONING ENGINE."**
 
-Chyren SELIN is an open-source **Reflect-It-Yourself Unit (RIYU)** designed for **verifiable accuracy over illusionary streaming speed**. It sacrifices instant ungrounded token output in favor of multi-pass mathematical verification governed by the **ARCHON** runtime.
+---
+
+## 🏛️ Overview
+
+**Chyren SELIN** (Sovereign Encrypted Localized Identity Nestor) is an open-source **Reflect-It-Yourself Unit (RIYU)**. It is designed for **verifiable accuracy over illusionary streaming speed**, sacrificing instant ungrounded token output in favor of multi-pass mathematical verification governed by the **ARCHON** runtime.
+
+SELIN is the public anchor of the Chyren ARI ecosystem, providing a localized, sovereign identity core that ensures your intelligence remains yours, your data remains local, and your reasoning remains grounded.
 
 ---
 
-## 1. System Taxonomy & Principles
+## ⚖️ System Taxonomy & Principles
 
-* **ARI (Artificial Real Intelligence):** Grounded, state-bound, anti-drift cognitive intelligence.
-* **ADCCL (Anti-Drift Cognitive Control Loop):** Universal 7-step structure-before-narration verification gate:
-  $$\chi = \sqrt{\frac{V^2 + (1 - J)^2}{2}} \ge \frac{1}{\sqrt{2}} \approx 0.7071$$
-* **SELIN:** Sovereign Encrypted Localized Identity Nestor — pre-packaged with the universal ADCCL governor.
-* **Yettragrammaton Protocol:** The gauge-fixing identity basepoint mechanism. On first boot (`selin init`), it generates an encrypted identity seal from your personal values ($H(\text{UserValues} \parallel \text{Entropy})$).
+*   **ARI (Artificial Real Intelligence):** Grounded, state-bound, anti-drift cognitive intelligence.
+*   **RIYU (Reflect-It-Yourself Unit):** A cognitive architecture that reflects on its own reasoning before committing to an output.
+*   **ADCCL (Anti-Drift Cognitive Control Loop):** The universal 7-step structure-before-narration verification gate:
+    $$ \chi = \sqrt{\frac{V^2 + (1 - J)^2}{2}} \ge \frac{1}{\sqrt{2}} \approx 0.7071 $$
+*   **Yettragrammaton Protocol:** The identity basepoint mechanism. On first boot (`selin init`), it generates an encrypted identity seal from your personal values ($H(\text{UserValues} \parallel \text{Entropy})$).
 
 ---
 
-## 2. Quickstart
+## 🛡️ ARCHON Governance
+
+The **ARCHON** runtime enforces a bi-cameral governance framework:
+
+1.  **Three-Tier Action Gate:** Prompts are risk-classified before execution. Severe intent is vetoed unless the operator binds `SELIN_SOVEREIGN_SIGNOFF`.
+2.  **Independent ADCCL Gate:** Answers are scored by a separate verification pass. Scoring **fails closed** — an unparseable or missing score rejects the output.
+3.  **Synthetic Judiciary:** A multi-layered framework decoupling provisional safety from immutable legal ratification.
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-* Rust 1.80+ (for building from source)
-* Docker & Docker Compose (for containerized local execution)
+*   **Rust 1.80+** (for building from source)
+*   **Docker & Docker Compose** (for containerized local execution)
 
 ### 1-Command Local AI Node Launch
 ```bash
 docker compose up -d
 ```
-This boots the ARCHON **HTTP server** alongside a local Ollama instance, pulls the
-default model automatically, and waits until both are healthy. Then:
+This boots the ARCHON **HTTP server** alongside a local Ollama instance.
 
+### Using the API
 ```bash
-# Liveness
+# Liveness Check
 curl localhost:8080/health
 
-# Govern a prompt (returns the ADCCL verdict + output only if it clears the gate)
+# Govern a Prompt
 curl -sX POST localhost:8080/v1/govern \
   -H 'content-type: application/json' \
   -d '{"prompt": "Explain the ADCCL chiral invariant."}'
 
-# Retrieve the proof trace for a run
+# Retrieve Audit Trace
 curl localhost:8080/v1/audit/<run_id>
 ```
 
-### Building & Running the CLI
+### Building the CLI
 ```bash
 cargo build --release
 ./target/release/selin init            # create your identity basepoint
@@ -51,45 +69,33 @@ cargo build --release
 ./target/release/selin serve --port 8080   # run the HTTP server directly
 ```
 
-### Verifying a build
-```bash
-./scripts/check.sh   # fmt + clippy (deny warnings) + tests
-```
+---
+
+## 🔐 Security & Implementation Status (Honest Accounting)
+
+### Implemented
+- **Independent ADCCL Gate:** Multi-pass verification that fails closed.
+- **Three-Tier Action Gate:** Risk-classification and operator sign-off.
+- **HTTP Governance Server:** Async (tokio/axum) service with concurrency caps.
+- **Identity Seal:** CSPRNG + HKDF-SHA256 HMAC for integrity and authenticity.
+
+### Pending (Roadmap)
+- **At-Rest Encryption:** The Myelin SQLite store is currently plaintext; SQLCipher integration is planned.
+- **Hardware-Anchored Keys:** TPM/TEE integration for secret-grade identity binding.
 
 ---
 
-## 3. Security & Implementation Status
+## 📂 Repository Structure
 
-Honest accounting of what is implemented today versus named/aspirational, so the
-"Encrypted"/"Sovereign" language isn't taken for more than it is.
+- `archon_kernel/`: Core Rust logic for ADCCL, risk, and verification.
+- `cli/`: The `selin` CLI tool for audit, governance, and server management.
+- `docs/`: Manifesto, Synthetic Judiciary Spec, and Quickstart guides.
+- `scripts/`: Verification and phase-gating scripts.
+- `templates/`: Terms of Sovereignty and Myelin schema templates.
 
-**Implemented**
-* **Independent ADCCL gate.** Answers are scored by a *separate* verification
-  pass (not model self-assessment), the question/answer are treated as untrusted
-  data, and scoring **fails closed** — an unparseable, missing, or absent score
-  rejects the output. It no longer defaults to passing.
-* **Three-tier action gate.** Prompts are risk-classified before execution;
-  severe intent is vetoed unless the operator binds `SELIN_SOVEREIGN_SIGNOFF`.
-* **HTTP governance server.** `selin serve` runs a real async (tokio/axum)
-  service — `GET /health`, `POST /v1/govern`, `GET /v1/audit/:run_id` — with a
-  concurrency cap and per-request timeout. `docker compose up` runs it, not a
-  one-shot preflight.
-* **CSPRNG + KDF seal entropy.** The basepoint seal draws entropy from the OS
-  CSPRNG and derives its key via HKDF-SHA256. The seal is an HMAC — this provides
-  *integrity/authenticity* (tamper-evidence), **not confidentiality**.
+---
 
-**Not yet implemented (named but pending — do not rely on these):**
-* **At-rest encryption.** The myelin SQLite store is currently plaintext. The
-  "Encrypted" in SELIN is a goal (SQLCipher), not a current property.
-* **Hardware-anchored keys / TPM.** Not integrated — do not treat the seal as
-  secret-grade; it binds identity and detects tampering, nothing more.
-
-**On the χ formula.** `χ = √[(V² + (1−J)²)/2]` and the `1/√2` floor are a
-*design convention* of this project (an L2 distance of the `(V, 1−J)` state from
-the origin, thresholded at the unit half-diagonal), not a derived theorem. Treat
-it as an engineering gate, not a proof.
-
-See [`CHANGELOG.md`](CHANGELOG.md) for the roadmap of the pending items.
-
-## 4. License
+## 📜 License
 Licensed under Apache License, Version 2.0 (`LICENSE`).
+
+> **ARCHON Protects. You Govern. Chyren SELIN.**
