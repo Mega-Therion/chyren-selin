@@ -1,8 +1,8 @@
-# Chyren SELIN Series — QUICKSTART
+# SELIN Series — QUICKSTART
 
 ## What is SELIN?
 
-**SELIN** (Sovereign Encrypted Localized Identity Nestor) is an open-source ARCHON runtime.  
+**SELIN** (Sovereign Encrypted Localized Identity Node) is an open-source ARCHON runtime.  
 It governs AI model responses through the **ADCCL** (Anti-Drift Cognitive Control Loop),  
 rejecting outputs that fall below the chiral floor `χ ≥ 1/√2 ≈ 0.7071`.
 

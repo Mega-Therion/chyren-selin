@@ -34,7 +34,7 @@ pub async fn execute_init() {
 
 async fn run_init() -> Result<(), String> {
     println!("╔══════════════════════════════════════════════════════════════╗");
-    println!("║     CHYREN SELIN Series (ARCHON v1.0) — Init Wizard          ║");
+    println!("║     SELIN Series (ARCHON v1.0) — Init Wizard          ║");
     println!("║     Reflect-It-Yourself Unit (RIYU) Sovereign Onboarding     ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
     println!();
@@ -68,7 +68,7 @@ async fn run_init() -> Result<(), String> {
         .map_err(|e| format!("could not read endpoint: {e}"))?;
 
     // Step 2: Generate the seal from CSPRNG entropy (was hostname:timestamp).
-    println!("\n[2/4] Generating Yettragrammaton Basepoint Seal (CSPRNG + HKDF)…");
+    println!("\n[2/4] Generating Sovereign Identity Basepoint Seal (CSPRNG + HKDF)…");
     let salt = generate_entropy()?;
     let salt_hex = hex::encode(salt);
     let seal = generate_basepoint_seal(&directives, &salt);

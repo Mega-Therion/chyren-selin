@@ -24,7 +24,7 @@
 # │ ARCHON  │ The architecture itself │ Everyone        │ Public     │
 # │ SELIN   │ The open-source distro  │ Anyone who DLs  │ Public     │
 # │ RIYU    │ A person's unique node  │ The individual   │ Private    │
-# │ AEON    │ The owner's personal    │ Mega Therion     │ Private   │
+# │ AEON    │ The owner's personal    │ The Owner     │ Private   │
 # │         │ RIYU (full-stack)       │                 │            │
 # └───────────────────────────────────────────────────────────────────────────┘
 #
@@ -38,7 +38,7 @@
 # What:
 #   ARCHON is the blueprint. It is the 7-layer polyglot stack, the ADCCL
 #   chiral invariant, the three-tier action gate, the fail-closed
-#   verification philosophy, the Yettragrammaton identity seal mechanism,
+#   verification philosophy, the Sovereign Identity Protocol mechanism,
 #   and the mesh protocol specification. It is the design from which both
 #   AEON and SELIN are built.
 #
@@ -106,7 +106,7 @@
 #   the opposite of fail-open, which would allow unverified outputs
 #   through. Fail-closed means: when in doubt, say no.
 #
-# Yettragrammaton Identity Seal:
+# Sovereign Identity Seal:
 #
 #   Every RIYU has a cryptographically unique identity seal generated
 #   at initialization time:
@@ -173,7 +173,7 @@
 #
 #   cli/                — Rust CLI (init, run, audit, serve commands)
 #   cli/src/main.rs     — Entry point, command dispatch
-#   cli/src/init.rs     — RIYU initialization, Yettragrammaton seal generation
+#   cli/src/init.rs     — RIYU initialization, Sovereign Identity seal generation
 #   cli/src/run.rs      — Governed task execution front-end
 #   cli/src/governance.rs — Full governance pipeline (gate→generate→verify→verdict)
 #   cli/src/preflight.rs — Ollama model detection, rate limiting
@@ -196,7 +196,7 @@
 #   ✗ No personal data of any kind — ever
 #
 # SELIN CLI commands:
-#   selin init    — Create a new RIYU (generates Yettragrammaton seal)
+#   selin init    — Create a new RIYU (generates Sovereign Identity seal)
 #   selin run     — Govern a prompt through the full pipeline
 #   selin audit   — Render proof trace for last governance run
 #   selin serve   — Start HTTP server for programmatic access
@@ -208,7 +208,7 @@
 # What:
 #   A RIYU is a person's unique, sovereign instance of SELIN. When
 #   someone downloads SELIN and runs `selin init`, a RIYU is born. It
-#   has its own cryptographically unique identity (Yettragrammaton seal),
+#   has its own cryptographically unique identity (Sovereign Identity seal),
 #   its own local LLM (via Ollama), its own audit store (SQLite Myelin),
 #   and its own governance pipeline. No two RIYUs are the same, even
 #   though they all run the same SELIN core on the same ARCHON
@@ -216,7 +216,7 @@
 #
 # Why:
 #   Because sovereignty requires uniqueness. If every node had the same
-#   identity, one compromise would compromise all. The Yettragrammaton
+#   identity, one compromise would compromise all. The Sovereign Identity Protocol
 #   seal ensures that each RIYU is cryptographically distinct: different
 #   random material, different derived keys, different HMAC signatures.
 #   An attacker who compromises one RIYU gets nothing useful for
@@ -235,7 +235,7 @@
 #
 # RIYU lifecycle:
 #   1. Download SELIN from GitHub
-#   2. Run `selin init` → generates Yettragrammaton seal (CSPRNG + HKDF-SHA256)
+#   2. Run `selin init` → generates Sovereign Identity seal (CSPRNG + HKDF-SHA256)
 #   3. Configure local Ollama endpoint
 #   4. Run `selin run "<prompt>"` → governed task execution
 #   5. Run `selin audit` → view proof trace
@@ -254,7 +254,7 @@
 # ═══════════════════════════════════════════════════════════════════════════
 #
 # What:
-#   AEON is Mega Therion's personal RIYU. It is the private, full-stack
+#   AEON is The Owner's personal RIYU. It is the private, full-stack
 #   implementation of the ARCHON architecture. Unlike SELIN (which is
 #   pure Rust, standalone, local-only), AEON is the complete 7-layer
 #   polyglot stack with all services running:
@@ -290,7 +290,7 @@
 #   why the air gap is critical — all of that data must remain private.
 #
 # Who it's for:
-#   Mega Therion. Specifically. Personally. Not for distribution, not for
+#   The Owner. Specifically. Personally. Not for distribution, not for
 #   sharing, not for open-sourcing. AEON is a single RIYU operated by a
 #   single person. Its data, configurations, and identity are private.
 #

@@ -1,7 +1,7 @@
 # SYNTHETIC AI JUDICIARY SYSTEM — MASTER ARCHITECTURAL SPECIFICATION
 
-> **Co-Designed & Hardened by Antigravity (Gemini) & Claude Code CLI**
-> **Part of the Chyren ARI, AEON (v2), and ARCHON / SELIN Sovereign Architecture**
+> **Co-Designed & Hardened by SELIN Contributors**
+> **Part of the ARCHON / SELIN Sovereign Architecture**
 
 ---
 
@@ -63,8 +63,8 @@ It decouples **Provisional Immediate Circuit-Breaker Safety** from **Immutable L
    - Contains the 3-Tier Defense Gate (`archon_kernel/src/three_tier_gate.rs`).
    - Implements Layer 0 model lineage registration and Layer 1 VRF jury sampling.
 
-2. **`chyren-aeon` (Private AEON v2 Core)**:
+2. **`chyren-aeon` (Private RIYU Core)**:
    - Houses the shared `adccl-core` self-healing error correction loop and ZK-deduction verifier.
 
-3. **`Chyren` (ARI v1 Sovereign Orchestrator)**:
+3. **Reference Architecture (Sovereign Orchestrator)**:
    - Houses the locked Ring-0 Referee (`sovereign_mesh_gate.py`) and the `chy-bridge` blockchain ledger.

@@ -1,4 +1,4 @@
-//! Yettragrammaton basepoint seal.
+//! Sovereign Identity basepoint seal.
 //!
 //! The seal binds an identity to a set of governing values with tamper-evidence.
 //! It is an HMAC — this gives **integrity/authenticity, not confidentiality**.

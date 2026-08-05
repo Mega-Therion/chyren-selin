@@ -11,7 +11,7 @@ mod server;
 #[command(name = "selin")]
 #[command(version)]
 #[command(
-    about = "Chyren SELIN Series (ARCHON) — Sovereign Localized Identity Nestor",
+    about = "SELIN Series (ARCHON) — Sovereign Encrypted Localized Identity Node",
     long_about = None
 )]
 struct Cli {
@@ -21,7 +21,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Initialize your Sovereign Identity Basepoint (Yettragrammaton 4-step wizard)
+    /// Initialize your Sovereign Identity Basepoint (Sovereign Identity 4-step wizard)
     Init,
     /// Diagnostic preflight check on connected AI model endpoint
     Preflight,

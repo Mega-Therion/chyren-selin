@@ -25,7 +25,7 @@
 #   RIYU    Reflect It Yourself Unit — each person's unique, sovereign
 #           instance. When someone downloads SELIN and runs `selin init`,
 #           they create a RIYU. Every RIYU is cryptographically unique
-#           (Yettragrammaton identity seal: CSPRNG + HKDF-SHA256 HMAC).
+#           (Sovereign Identity seal: CSPRNG + HKDF-SHA256 HMAC).
 #           Every RIYU has its own local LLM, its own audit store, its own
 #           identity. No two RIYUs are the same. But every RIYU runs the
 #           same SELIN core on the same ARCHON architecture.
@@ -93,12 +93,12 @@
 # The following are PERSONAL DATA and must NEVER be exported to SELIN:
 #
 #   ✗ Qdrant vector embeddings (conversation memory, knowledge vectors)
-#   ✗ Zettelkasten knowledge graph files (.chyren/knowledge/)
+#   ✗ Zettelkasten knowledge graph files (.selin/knowledge/)
 #   ✗ Supabase file paths, content hashes, or file indices
 #   ✗ Commit SHAs or branch names from any private RIYU repo
 #   ✗ API keys, provider configs, model endpoints
 #   ✗ User prompts or raw model outputs from audit logs
-#   ✗ Identity basepoint seals or derived keys (the Yettragrammaton seal
+#   ✗ Identity basepoint seals or derived keys (the Sovereign Identity seal
 #      MECHANISM is public, but no actual seal values)
 #   ✗ Any file containing email addresses, phone numbers, or credentials
 #   ✗ Audit log entries (even hashed — the hashes could be reversed)
@@ -112,7 +112,7 @@
 #   ✓ Proof STATUS (verified/unverified counts, sorry counts — NOT proof content)
 #   ✓ Aggregate file counts by language and layer (NOT file paths)
 #   ✓ The fail-closed verification philosophy (public design principle)
-#   ✓ The Yettragrammaton identity seal MECHANISM (the algorithm, not any seal value)
+#   ✓ The Sovereign Identity seal MECHANISM (the algorithm, not any seal value)
 #   ✓ The mesh protocol specification (verdict format, peer discovery — not peer identities)
 #
 # ─── ENFORCEMENT LAYERS ────────────────────────────────────────────────────

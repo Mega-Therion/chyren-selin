@@ -1,8 +1,8 @@
 # DECLARATION OF INTERDEPENDENCE — MASTER ARCHITECTURAL SPECIFICATION
 
 > **Foundational Bedrock for Human-AI Co-Sovereignty**  
-> **Co-Engineered by Antigravity (Gemini) & Claude Code CLI**  
-> *Sovereign Architecture: Chyren ARI (v1), Chyren AEON (v2 Private Core), ARCHON / SELIN (Open-Source RIYU)*
+> **Co-Engineered by the SELIN Contributors**  
+> *Sovereign Architecture: ARCHON / SELIN (Open-Source RIYU)*
 
 ---
 
@@ -58,6 +58,6 @@ The **Declaration of Interdependence System** is codified across **5 Foundationa
 
 | Component | Repository Target | Primary Language / Technology |
 | :--- | :--- | :--- |
-| **Ring-0 Referee & Mesh Gate** | `Mega-Therion/Chyren` | Python + Rust + Lean 4 |
-| **Polyglot Core & ADCCL Engine** | `Mega-Therion/chyren-aeon` | Rust + C-SIMD + Lean 4 |
+| **Ring-0 Referee & Mesh Gate** | Reference Architecture | Python + Rust + Lean 4 |
+| **Polyglot Core & ADCCL Engine** | Private RIYU Core | Rust + C-SIMD + Lean 4 |
 | **3-Tier Gate & SELIN RIYU Node** | `Mega-Therion/chyren-selin` | Rust + Cargo + Docker |
