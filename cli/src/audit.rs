@@ -1,6 +1,4 @@
-use rusqlite::Connection;
-
-use crate::init::myelin_db_path;
+use crate::init::{myelin_db_path, open_myelin};
 
 /// Render the proof trace for an ADCCL run from the myelin store.
 /// This is the public transparency mechanism — every number shown here
@@ -18,7 +16,7 @@ pub fn execute_audit(run_id: &str) {
         std::process::exit(1);
     }
 
-    let conn = match Connection::open(&db_path) {
+    let conn = match open_myelin() {
         Ok(c) => c,
         Err(e) => {
             eprintln!("  [error] Failed to open myelin store: {}", e);

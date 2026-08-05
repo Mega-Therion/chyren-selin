@@ -51,8 +51,7 @@ All notable changes to ARCHON / SELIN. Format loosely follows
 
 Ordered by priority.
 
-1. **At-rest encryption** — SQLCipher for the myelin store, so "Encrypted" is
-   true rather than aspirational. (The one remaining 🔴 from the review.)
+1. ~~**At-rest encryption** — SQLCipher for the myelin store.~~ **Done** ✅
 2. **Second-verifier / retrieval option** — allow a distinct verifier model or a
    retrieval-augmented fact check for `v_score`, not just a second prompt.
 3. **Hardware-anchored keys / TPM** — bind the seal to hardware.

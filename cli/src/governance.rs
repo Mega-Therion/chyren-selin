@@ -12,13 +12,12 @@ use archon_kernel::{
 };
 use chrono::Utc;
 use reqwest::Client;
-use rusqlite::Connection;
 use serde::Serialize;
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
 use uuid::Uuid;
 
-use crate::init::myelin_db_path;
+use crate::init::open_myelin;
 
 /// Per-request configuration resolved before governance runs.
 #[derive(Clone)]
@@ -224,7 +223,7 @@ async fn persist(
         report.rejection_reason.clone(),
     );
     let _ = tokio::task::spawn_blocking(move || {
-        if let Ok(conn) = Connection::open(myelin_db_path()) {
+        if let Ok(conn) = open_myelin() {
             let _ = conn.execute(
                 "INSERT INTO adccl_runs (run_id, created_at, prompt_hash, v_score, j_penalty, chi_invariant, passed, rejection_reason, model_endpoint, raw_output_snippet)
                  VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",

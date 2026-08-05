@@ -19,13 +19,12 @@ use axum::{
     Json, Router,
 };
 use reqwest::Client;
-use rusqlite::Connection;
 use serde::Deserialize;
 use serde_json::{json, Value};
 use tokio::sync::Semaphore;
 
 use crate::governance::{govern, GovernConfig};
-use crate::init::myelin_db_path;
+use crate::init::open_myelin;
 
 struct AppState {
     client: Client,
@@ -134,7 +133,7 @@ async fn audit_handler(
 
 /// Read one run's proof trace from the myelin store.
 fn read_run(run_id: &str) -> Option<Value> {
-    let conn = Connection::open(myelin_db_path()).ok()?;
+    let conn = open_myelin().ok()?;
     conn.query_row(
         "SELECT run_id, created_at, prompt_hash, v_score, j_penalty, chi_invariant, passed, rejection_reason, model_endpoint, raw_output_snippet
          FROM adccl_runs WHERE run_id = ?1",

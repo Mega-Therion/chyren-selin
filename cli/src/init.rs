@@ -1,7 +1,6 @@
 use archon_kernel::basepoint::{generate_basepoint_seal, generate_entropy};
 use chrono::Utc;
 use dialoguer::{theme::ColorfulTheme, Input};
-use rusqlite::Connection;
 use serde_json::json;
 use std::fs;
 use std::path::PathBuf;
@@ -17,6 +16,28 @@ pub fn selin_dir() -> PathBuf {
 
 pub fn myelin_db_path() -> PathBuf {
     selin_dir().join("myelin.db")
+}
+
+/// Returns the database encryption key from basepoint.json, if present.
+/// Used to apply PRAGMA key when opening the Myelin store.
+pub fn db_key() -> Option<String> {
+    let raw = std::fs::read_to_string(basepoint_path()).ok()?;
+    let v: JsonValue = serde_json::from_str(&raw).ok()?;
+    v.get("db_key")
+        .and_then(|k| k.as_str())
+        .map(|s| s.to_string())
+}
+
+/// Open the Myelin SQLite store, applying encryption if a key exists.
+/// Falls back to unencrypted for backward compatibility (no key in basepoint.json).
+pub fn open_myelin() -> Result<rusqlite::Connection, String> {
+    let conn = rusqlite::Connection::open(myelin_db_path())
+        .map_err(|e| format!("could not open {}: {e}", myelin_db_path().display()))?;
+    if let Some(key) = db_key() {
+        conn.pragma_update(None, "key", &key)
+            .map_err(|e| format!("could not apply database encryption: {e}"))?;
+    }
+    Ok(conn)
 }
 
 pub fn basepoint_path() -> PathBuf {
@@ -76,8 +97,14 @@ async fn run_init() -> Result<(), String> {
     fs::create_dir_all(selin_dir())
         .map_err(|e| format!("could not create {}: {e}", selin_dir().display()))?;
 
+    // Generate a 32-byte database encryption key (SQLCipher).
+    // Stored in basepoint.json alongside the seal — both are local-only.
+    let db_key_bytes = generate_entropy()?;
+    let db_key_hex = hex::encode(db_key_bytes);
+
     // basepoint.json stores the seal + the random salt (needed to re-verify the
-    // seal). It deliberately does NOT store the directives or any hint of them.
+    // seal) + the database encryption key. It deliberately does NOT store the
+    // directives or any hint of them.
     let bp_json = json!({
         "version": 2,
         "seal": seal,
@@ -85,6 +112,7 @@ async fn run_init() -> Result<(), String> {
         "seal_alg": "HKDF-SHA256/HMAC-SHA256",
         "created_at": Utc::now().to_rfc3339(),
         "endpoint": endpoint,
+        "db_key": db_key_hex,
     });
     fs::write(
         basepoint_path(),
@@ -112,8 +140,7 @@ async fn run_init() -> Result<(), String> {
     // Step 4: Myelin store.
     println!("\n[4/4] Initializing Myelin SQLite Store…");
     let schema_sql = include_str!("../../templates/myelin_schema.sql");
-    let conn = Connection::open(myelin_db_path())
-        .map_err(|e| format!("could not open {}: {e}", myelin_db_path().display()))?;
+    let conn = open_myelin()?;
     conn.execute_batch(schema_sql)
         .map_err(|e| format!("could not apply myelin schema: {e}"))?;
 
@@ -147,7 +174,7 @@ async fn run_init() -> Result<(), String> {
 
     let db_size = fs::metadata(myelin_db_path()).map(|m| m.len()).unwrap_or(0);
     println!(
-        "      Myelin DB: {} ({db_size} bytes)",
+        "      Myelin DB: {} ({db_size} bytes) [SQLCipher encrypted]",
         myelin_db_path().display()
     );
 

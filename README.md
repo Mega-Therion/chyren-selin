@@ -65,7 +65,10 @@ cargo build --release
 # 5. View the proof trace
 ./target/release/selin audit
 
-# 6. (Optional) Start the HTTP server
+# 6. Verify your LLM endpoint compliance
+./target/release/selin preflight
+
+# 7. (Optional) Start the HTTP server
 ./target/release/selin serve --port 8080
 ```
 
@@ -95,7 +98,7 @@ Prompt → Risk Gate → Generate → Independent Verify → χ Computation → 
 
 ## 🔐 Security & Sovereignty
 
-- **At-Rest Encryption:** The Myelin SQLite store is currently plaintext; SQLCipher integration is planned.
+- **At-Rest Encryption:** The Myelin SQLite store supports encryption via SQLCipher. Set the `SELIN_DB_KEY` environment variable to enable encryption (see `selin init --help`).
 - **No Phone-Home:** SELIN never sends your data anywhere. No telemetry, no analytics, no crash reports.
 - **Identity Seal:** Your RIYU's identity is cryptographically unique (CSPRNG + HKDF-SHA256). Nobody can impersonate your node.
 
@@ -131,6 +134,9 @@ Apache 2.0 — free for all, forever.
 ## 📖 Documentation
 
 - [System Architecture](docs/SYSTEM_ARCHITECTURE.md) — what ARCHON, SELIN, RIYU, and AEON are
+- [Contributing](CONTRIBUTING.md) — how to contribute to SELIN
+- [Security Policy](SECURITY.md) — how to report vulnerabilities
+- [Code of Conduct](CODE_OF_CONDUCT.md) — community standards
 - [Air Gap Policy](docs/AIR_GAP_POLICY.md) — bilateral data isolation contract
 - [Quickstart Guide](docs/QUICKSTART.md) — get running in 5 minutes
 - [Synthetic Judiciary Spec](docs/SYNTHETIC_JUDICIARY_SPEC.md) — governance framework details
