@@ -1,43 +1,55 @@
-name: CI
+name: Archon Selin CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [ main, master ]
   pull_request:
-    branches: [main]
+    branches: [ main, master ]
 
 env:
   CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
 
 jobs:
-  check:
-    name: Quality Gate
+  test:
+    name: Build & Test Suite
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt, clippy
+          components: clippy, rustfmt
 
-      - name: Cache cargo registry
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
 
-      - name: Check formatting
+      - name: Check Code Formatting
         run: cargo fmt --all -- --check
 
-      - name: Run clippy (deny warnings)
+      - name: Clippy Linter Check
         run: cargo clippy --workspace --all-targets -- -D warnings
 
-      - name: Run tests
-        run: cargo test --workspace
+      - name: Run Tests
+        run: cargo test --workspace --all-targets
 
-      - name: Verify release build
-        run: cargo build --release -p selin
+  docker:
+    name: Docker Build Verification
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: archon-selin:ci-latest

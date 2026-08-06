@@ -1,56 +1,17 @@
-# Security Policy
+# Archon Selin Security Policy
+
+## Security & Verification Guarantees
+
+Archon Selin operates on a strict **Fail-Closed** security architecture:
+1. **ADCCL Gate Enforcement**: All candidate model outputs must satisfy the canonical chiral invariant ($\chi = \sqrt{(V^2 + (1-J)^2)/2} \ge \frac{1}{\sqrt{2}} \approx 0.70710678$).
+2. **Local Storage Privacy**: Myelin proof records and SQLite identity stores remain strictly localized on-device. Zero telemetry or sensitive trace logs are transmitted to external services.
+3. **API Key Authentication**: When running in network mode (`selin serve`), endpoints are secured via Bearer or `X-API-Key` headers matching `ARCHON_API_KEY`.
+4. **Input Boundaries**: Prompts are constrained to 32KB and sanitized against hidden zero-width Unicode injection vectors prior to governance preflight.
 
 ## Reporting a Vulnerability
 
-SELIN is a security-first project. We take vulnerability reports seriously.
-
-### How to Report
-
-**DO NOT open a public GitHub issue for security vulnerabilities.**
-
-Instead, please report vulnerabilities by emailing the repository owner directly through GitHub's private vulnerability reporting feature:
-
-1. Go to the [Security tab](https://github.com/Mega-Therion/chyren-selin/security) of this repository
-2. Click "Report a vulnerability"
-3. Provide a clear description of the issue, steps to reproduce, and potential impact
-
-### Response Timeline
-
-- **Acknowledgment:** Within 48 hours
-- **Initial Assessment:** Within 7 days
-- **Fix or Mitigation:** Within 30 days for high-severity issues
-
-### Scope
-
-Vulnerabilities in scope:
-- Bypass of the ADCCL chiral invariant gate
-- Bypass of the fail-closed verification mechanism
-- Compromise of the Sovereign Identity Protocol seal
-- Injection or manipulation of the verification model's response
-- Data leakage from the Myelin store
-- Authentication or authorization bypass in the HTTP server
-
-Vulnerabilities out of scope:
-- Issues in dependencies (report upstream)
-- Issues requiring physical access to the user's machine
-- Social engineering attacks
-- DoS via excessive prompt length
-
-### Safe Harbor
-
-We will not take legal action against security researchers who:
-- Make a good-faith effort to avoid privacy violations and data destruction
-- Give us reasonable time to respond before public disclosure
-- Do not access or modify data that does not belong to them
-
-## Security Architecture
-
-SELIN's security model is built on three principles:
-
-1. **Fail-Closed Verification:** If verification is missing, unparseable, or fails, the output is rejected. No exceptions. Missing verification = failed verification.
-
-2. **Sovereign Identity:** Each RIYU has a cryptographically unique identity seal (CSPRNG + HKDF-SHA256). No central authority can impersonate, revoke, or override your node.
-
-3. **Local-First:** All data stays on your machine. No telemetry, no phone-home, no cloud dependencies. Your prompts, your audit logs, your identity - all local.
-
-See [docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md) for the full architecture and [docs/AIR_GAP_POLICY.md](docs/AIR_GAP_POLICY.md) for the bilateral air gap contract.
+If you discover a potential security flaw or vulnerability within Archon Selin:
+1. **Do NOT** open a public issue.
+2. Email security reports directly to: `security@chyren.org` or submit an encrypted report.
+3. Provide steps to reproduce, impact assessment, and any relevant payload snippets.
+4. The security team will acknowledge receipt within 24 hours and issue a CVE advisory upon verification and patching.
