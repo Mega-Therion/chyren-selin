@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Mega-Therion/chyren-selin#readme",
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "ai": "^7.0.55"
   }
 }
