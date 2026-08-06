@@ -1,0 +1,1 @@
+import{getRuntimeActionResultKey}from"#runtime/actions/keys.js";function resolveRuntimeActionResultsForKeys(t){let n=new Set(t.pendingKeys),r=new Map;for(let i of t.results){let t=getRuntimeActionResultKey(i);n.has(t)&&r.set(t,i)}let i=[];for(let e of t.pendingKeys){let t=r.get(e);if(t===void 0)return;i.push(t)}return i}export{resolveRuntimeActionResultsForKeys};

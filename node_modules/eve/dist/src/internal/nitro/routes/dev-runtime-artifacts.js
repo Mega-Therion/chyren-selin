@@ -1,0 +1,1 @@
+import{readDevelopmentRuntimeArtifactsRevision}from"#internal/nitro/dev-runtime-artifacts.js";function handleDevRuntimeArtifactsRequest(e){return Response.json(readDevelopmentRuntimeArtifactsRevision(e.appRoot),{headers:{"cache-control":`no-store`}})}export{handleDevRuntimeArtifactsRequest};

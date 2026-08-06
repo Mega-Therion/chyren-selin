@@ -1,0 +1,1 @@
+var HumanActionRequiredError=class extends Error{action;constructor(e){super(`Human action required: \`${e.command}\` — ${e.reason}`),this.name=`HumanActionRequiredError`,this.action=e}};export{HumanActionRequiredError};

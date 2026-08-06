@@ -1,0 +1,1 @@
+const NOT_AN_AGENT_MESSAGE="No eve agent in this directory. Run `eve init <name>`, then run this command from inside the new project.";function hasInteractiveTerminal(){return!!(process.stdin.isTTY&&process.stdout.isTTY)}export{NOT_AN_AGENT_MESSAGE,hasInteractiveTerminal};

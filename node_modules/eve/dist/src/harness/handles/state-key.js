@@ -1,0 +1,1 @@
+const AGENT_HANDLES_STATE_KEY=`eve.agent.handles`;export{AGENT_HANDLES_STATE_KEY};

@@ -1,0 +1,1 @@
+const SCHEDULE_APP_AUTH={attributes:{},authenticator:`app`,principalId:`eve:app`,principalType:`runtime`};function isScheduleAppAuth(e){return e?.authenticator===SCHEDULE_APP_AUTH.authenticator&&e.principalId===SCHEDULE_APP_AUTH.principalId&&e.principalType===SCHEDULE_APP_AUTH.principalType}export{SCHEDULE_APP_AUTH,isScheduleAppAuth};

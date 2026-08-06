@@ -1,0 +1,1 @@
+function defineSchedule(e){return e}export{defineSchedule};

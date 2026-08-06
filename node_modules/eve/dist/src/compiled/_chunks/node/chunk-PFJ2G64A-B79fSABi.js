@@ -1,0 +1,1 @@
+var e=1600;function t(e,t={}){let n=t.limit??1600;if(!Number.isInteger(n)||n<1)throw TypeError(`limit must be a positive integer`);return e.length<=n?{text:e,truncated:!1}:{text:e.slice(0,n),truncated:!0}}function n(e){return e.length>0?e:` `}export{t as n,n as r,e as t};

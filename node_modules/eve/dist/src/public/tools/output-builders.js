@@ -1,0 +1,1 @@
+const toolOutput={text(e){return{type:`text`,value:e}},json(e){return{type:`json`,value:e}},content(e){return{type:`content`,value:e}}},toolOutputPart={text(e){return{type:`text`,text:e}},file(e,t){let n={type:`file`,data:{type:`data`,data:e},mediaType:t.mediaType};return t.filename!==void 0&&(n.filename=t.filename),n}};export{toolOutput,toolOutputPart};

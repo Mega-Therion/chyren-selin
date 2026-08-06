@@ -1,0 +1,1 @@
+var WizardCancelledError=class extends Error{constructor(){super(`Wizard cancelled.`),this.name=`WizardCancelledError`}};export{WizardCancelledError};

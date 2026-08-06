@@ -1,0 +1,1 @@
+function activeTurnId(e){return e.turnId===``?`turn_${e.sequence}`:e.turnId}export{activeTurnId};

@@ -1,0 +1,1 @@
+import{sleep}from"#compiled/@workflow/core/index.js";import{signalSessionTimeoutStep}from"#execution/session-timeout-steps.js";async function sessionTimeoutWorkflow(e){"use workflow";await sleep(e.deadline),await signalSessionTimeoutStep({token:e.token})}export{sessionTimeoutWorkflow};

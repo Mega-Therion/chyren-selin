@@ -1,0 +1,1 @@
+var EvalRequirementFailed=class extends Error{constructor(){super(`A required eval assertion failed.`),this.name=`EvalRequirementFailed`}},EvalSkipped=class extends Error{reason;constructor(e){super(e),this.name=`EvalSkipped`,this.reason=e}};export{EvalRequirementFailed,EvalSkipped};

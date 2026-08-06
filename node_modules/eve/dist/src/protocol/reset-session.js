@@ -1,0 +1,1 @@
+import{z}from"#compiled/zod/index.js";const ResetResponseSchema=z.discriminatedUnion(`status`,[z.object({ok:z.literal(!0),previousSessionId:z.string().min(1),status:z.literal(`reset`)}),z.object({ok:z.literal(!0),status:z.literal(`no_active_session`)})]);export{ResetResponseSchema};

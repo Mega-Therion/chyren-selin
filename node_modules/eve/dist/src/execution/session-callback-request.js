@@ -1,0 +1,1 @@
+async function postSessionCallbackRequest(e){return await fetch(e.url,{body:JSON.stringify(e.body),headers:{"content-type":`application/json`},method:`POST`,redirect:`error`,signal:AbortSignal.timeout(3e4)})}export{postSessionCallbackRequest};

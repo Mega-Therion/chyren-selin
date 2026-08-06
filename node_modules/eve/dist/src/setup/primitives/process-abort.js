@@ -1,0 +1,1 @@
+function armProcessAbort(e,t){if(t===void 0)return()=>{};let n,abort=()=>{e.kill(`SIGTERM`),n=setTimeout(()=>e.kill(`SIGKILL`),5e3),n.unref()};return t.aborted?abort():t.addEventListener(`abort`,abort,{once:!0}),()=>{t.removeEventListener(`abort`,abort),n!==void 0&&clearTimeout(n)}}export{armProcessAbort};

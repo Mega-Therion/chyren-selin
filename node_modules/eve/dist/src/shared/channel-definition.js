@@ -1,0 +1,1 @@
+import"#channel/cors.js";export{};

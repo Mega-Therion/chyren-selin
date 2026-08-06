@@ -1,0 +1,1 @@
+function resolveInheritedTokenLimit(e){return e.inherited===void 0||e.inherited===!1?e.configured:e.configured===void 0||e.configured===!1?e.inherited:Math.min(e.configured,e.inherited)}export{resolveInheritedTokenLimit};

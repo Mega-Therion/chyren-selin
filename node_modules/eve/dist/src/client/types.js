@@ -1,0 +1,1 @@
+const VERCEL_TRUSTED_OIDC_IDP_TOKEN_HEADER=`x-vercel-trusted-oidc-idp-token`;export{VERCEL_TRUSTED_OIDC_IDP_TOKEN_HEADER};

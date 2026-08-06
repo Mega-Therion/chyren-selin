@@ -1,0 +1,3 @@
+const CLEAR_TO_END=`\x1B[0J`;var LiveRegion=class{#e;#t;#n=0;constructor(e,t){this.#e=e.write.bind(e),this.#t=t?.synchronized??!0}hideCursor(){this.#e(`\x1B[?25l`)}showCursor(){this.#e(`\x1B[?25h`)}emitBracketedPaste(e){this.#e(e?`\x1B[?2004h`:`\x1B[?2004l`)}newline(){this.#e(`
+`)}update(e){this.#r([],e)}flush(e,t){this.#r(e,t)}clear(){if(this.#n===0){this.#e(`\r`),this.#e(CLEAR_TO_END);return}this.#e(`${this.#i()}${CLEAR_TO_END}`),this.#n=0}clearAll(){this.#e(`\x1B[3J\x1B[2J\x1B[H`),this.#n=0}reset(){this.#n=0}#r(t,n){let r=this.#i()+CLEAR_TO_END+t.map(e=>`${e}\n`).join(``)+n.join(`
+`);this.#e(this.#t?`[?2026h${r}[?2026l`:r),this.#n=n.length}#i(){return this.#n<=1?`\r`:`[${this.#n-1}F`}};export{LiveRegion};

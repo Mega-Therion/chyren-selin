@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/Mega-Therion/chyren-selin#readme",
   "dependencies": {
-    "ai": "^7.0.55"
+    "@vercel/connect": "^0.6.1",
+    "ai": "^7.0.55",
+    "eve": "^0.30.8"
   }
 }

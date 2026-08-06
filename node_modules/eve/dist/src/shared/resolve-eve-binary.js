@@ -1,0 +1,1 @@
+import{createRequire}from"node:module";import{dirname,join}from"node:path";function resolveEveBinaryPath(e){try{return join(dirname(createRequire(join(e,`package.json`)).resolve(`eve/package.json`)),`bin`,`eve.js`)}catch{return join(e,`node_modules`,`eve`,`bin`,`eve.js`)}}export{resolveEveBinaryPath};

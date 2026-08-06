@@ -1,0 +1,1 @@
+function toChannelLocalContinuationToken(e){let t=e.indexOf(`:`);return t<0?e:e.slice(t+1)}export{toChannelLocalContinuationToken};

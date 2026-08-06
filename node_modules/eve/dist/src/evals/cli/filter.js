@@ -1,0 +1,1 @@
+function filterEvalsByTags(e){return e.evaluations.filter(t=>{let n=t.tags??[];return e.includeTags.length>0&&!n.some(t=>e.includeTags.includes(t))?!1:!n.some(t=>e.excludeTags.includes(t))})}export{filterEvalsByTags};

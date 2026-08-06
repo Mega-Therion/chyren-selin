@@ -1,0 +1,1 @@
+import{defineTool}from"#public/definitions/tool.js";import{SLEEP_INPUT_SCHEMA,SLEEP_OUTPUT_SCHEMA,SLEEP_TOOL_DESCRIPTION,executeSleepTool}from"#runtime/framework-tools/sleep.js";function sleep(){return defineTool({description:SLEEP_TOOL_DESCRIPTION,execute:executeSleepTool,inputSchema:SLEEP_INPUT_SCHEMA,outputSchema:SLEEP_OUTPUT_SCHEMA})}export{sleep};

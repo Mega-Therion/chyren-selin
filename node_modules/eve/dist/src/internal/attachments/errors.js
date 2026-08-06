@@ -1,0 +1,1 @@
+var EveAttachmentError=class extends Error{kind;adapterKind;cause;constructor(e){super(e.message),this.name=`EveAttachmentError`,this.kind=e.kind,e.adapterKind!==void 0&&(this.adapterKind=e.adapterKind),e.cause!==void 0&&(this.cause=e.cause)}};export{EveAttachmentError};

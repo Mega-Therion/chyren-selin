@@ -1,0 +1,1 @@
+import{clearReadFileState}from"#runtime/framework-tools/file-state.js";import{getTodoCompactionMessage}from"#runtime/framework-tools/todo.js";function preserveFrameworkStateOnCompaction(){clearReadFileState();let e=getTodoCompactionMessage();return e===void 0?[]:[e]}export{preserveFrameworkStateOnCompaction};

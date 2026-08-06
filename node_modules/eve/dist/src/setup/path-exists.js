@@ -1,0 +1,1 @@
+import{stat}from"node:fs/promises";async function pathExists(e){try{return await stat(e),!0}catch{return!1}}export{pathExists};

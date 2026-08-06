@@ -1,0 +1,1 @@
+import module_default from"./module.js";export{module_default as default};

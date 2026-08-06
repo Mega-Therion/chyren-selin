@@ -1,0 +1,1 @@
+import{stat}from"node:fs/promises";import{isErrnoCode}from"#shared/guards.js";async function pathExists(t){try{return await stat(t),!0}catch(e){if(isErrnoCode(e,`ENOENT`))return!1;throw e}}export{pathExists};

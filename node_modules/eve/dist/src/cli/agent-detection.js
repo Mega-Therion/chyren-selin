@@ -1,0 +1,1 @@
+import{determineAgent}from"#compiled/@vercel/detect-agent/index.js";import{CODING_AGENT_ENV_MARKERS}from"#setup/primitives/coding-agent-env.js";async function isCodingAgentLaunch(){return(await determineAgent()).isAgent}export{CODING_AGENT_ENV_MARKERS,isCodingAgentLaunch};

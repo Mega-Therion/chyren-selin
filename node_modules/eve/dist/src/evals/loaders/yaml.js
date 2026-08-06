@@ -1,0 +1,1 @@
+import{readFile}from"node:fs/promises";import{isAbsolute,resolve}from"node:path";import{parseFrontmatter}from"#internal/helpers/gray-matter.js";async function loadYaml(e){let t=await readFile(isAbsolute(e)?e:resolve(process.cwd(),e),`utf-8`);return parseFrontmatter(t.trimStart().startsWith(`---`)?t:`---\n${t}\n---`).data}export{loadYaml};

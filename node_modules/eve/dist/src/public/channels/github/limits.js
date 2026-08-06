@@ -1,0 +1,2 @@
+const GITHUB_COMMENT_BODY_MAX_LENGTH=65536;function splitGitHubCommentBody(t,n=GITHUB_COMMENT_BODY_MAX_LENGTH){if(t.length<=n)return[t];let r=[],i=t;for(;i.length>n;){let e=findCommentSplitIndex(i,n);r.push(i.slice(0,e).trimEnd()),i=i.slice(e).trimStart()}return i.length>0&&r.push(i),r}function findCommentSplitIndex(e,t){let n=e.lastIndexOf(`
+`,t);if(n>t*.5)return n;let r=e.lastIndexOf(` `,t);return r>t*.5?r:t}export{GITHUB_COMMENT_BODY_MAX_LENGTH,splitGitHubCommentBody};

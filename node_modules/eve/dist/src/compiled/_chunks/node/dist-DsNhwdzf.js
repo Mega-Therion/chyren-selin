@@ -1,0 +1,1 @@
+const e=Symbol.for(`workflow-serialize`),t=Symbol.for(`workflow-deserialize`);export{e as n,t};

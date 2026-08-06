@@ -1,0 +1,1 @@
+import{fromError}from"#compiled/zod-validation-error/index.js";function formatValidationError(e){return fromError(e,{prefix:void 0}).message}export{formatValidationError};

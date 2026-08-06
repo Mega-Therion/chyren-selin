@@ -1,0 +1,1 @@
+import{Buffer}from"node:buffer";function createUnsignedJwt(e){return`${Buffer.from(JSON.stringify({alg:`none`})).toString(`base64url`)}.${Buffer.from(JSON.stringify(e)).toString(`base64url`)}.sig`}export{createUnsignedJwt};

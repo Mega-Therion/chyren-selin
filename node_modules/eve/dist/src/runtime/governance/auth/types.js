@@ -1,0 +1,1 @@
+function createRuntimeSessionAuthContext(e){return{attributes:e.attributes,authenticator:e.authenticator,issuer:e.issuer,principalId:e.principalId,principalType:e.principalType,subject:e.subject}}export{createRuntimeSessionAuthContext};

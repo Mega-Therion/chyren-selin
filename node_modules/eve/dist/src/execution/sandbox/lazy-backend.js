@@ -1,0 +1,1 @@
+function lazyBackend(e){let t;function resolve(){return t===void 0&&(t=e()),t}return{get name(){return resolve().name},create(e){return resolve().create(e)},prewarm(e){return resolve().prewarm(e)}}}export{lazyBackend};

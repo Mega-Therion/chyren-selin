@@ -1,0 +1,1 @@
+import{createUlid,isUlid}from"#shared/ulid.js";const EVENT_ID_PREFIX=`evt_`;function createEventId(){return`${EVENT_ID_PREFIX}${createUlid()}`}function isEventId(e){return e.startsWith(`evt_`)&&isUlid(e.slice(4))}export{EVENT_ID_PREFIX,createEventId,isEventId};

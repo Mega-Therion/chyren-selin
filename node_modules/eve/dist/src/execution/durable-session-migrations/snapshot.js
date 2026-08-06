@@ -1,0 +1,1 @@
+import{runMigrationChain}from"./chain.js";import{DURABLE_SESSION_VERSION}from"#execution/durable-session-store.js";const snapshotMigrations=[];function migrateDurableSessionSnapshot(e){return runMigrationChain({label:`durable session snapshot`,migrations:snapshotMigrations,targetVersion:DURABLE_SESSION_VERSION,value:e})}export{migrateDurableSessionSnapshot};

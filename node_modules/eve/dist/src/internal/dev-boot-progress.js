@@ -1,0 +1,1 @@
+async function devBootPhase(e,t,n){if(n===void 0)return await t();let r=Date.now();n({phase:e,type:`phase-started`});try{return await t()}finally{n({elapsedMs:Date.now()-r,phase:e,type:`phase-finished`})}}export{devBootPhase};

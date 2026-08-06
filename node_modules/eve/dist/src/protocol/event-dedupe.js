@@ -1,0 +1,1 @@
+function createEventDeduper(){let e=new Set;return{admit(t){let n=t.meta?.id;return n===void 0?!0:e.has(n)?!1:(e.add(n),!0)},get size(){return e.size}}}export{createEventDeduper};

@@ -1,0 +1,2 @@
+import{WORKSPACE_ROOT}from"#runtime/workspace/types.js";function buildDockerBaseSetupScript(){return[`set -e`,`mkdir -p ${WORKSPACE_ROOT}`,`command -v bash >/dev/null 2>&1 || { echo "the sandbox image must provide bash" >&2; exit 70; }`].join(`
+`)}export{buildDockerBaseSetupScript};

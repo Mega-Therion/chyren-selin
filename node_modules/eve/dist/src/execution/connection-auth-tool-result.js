@@ -1,0 +1,1 @@
+function normalizeConnectionAuthToolResult(e){if(e===void 0)return null;try{return JSON.parse(JSON.stringify(e))}catch{return{error:`tool_result_not_serializable`,retryable:!1}}}export{normalizeConnectionAuthToolResult};

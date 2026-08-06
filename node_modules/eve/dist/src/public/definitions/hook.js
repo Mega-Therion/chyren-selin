@@ -1,0 +1,1 @@
+function defineHook(e){return e}export{defineHook};

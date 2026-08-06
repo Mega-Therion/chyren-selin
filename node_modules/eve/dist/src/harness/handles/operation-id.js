@@ -1,0 +1,1 @@
+import{createHash}from"node:crypto";function deriveAgentOperationId(e){return createHash(`sha256`).update(`${e.parentSessionId}\0${e.parentTurnId}\0${e.callId}`).digest(`hex`)}export{deriveAgentOperationId};

@@ -1,0 +1,1 @@
+async function withSpinner(e,t,n){let r=e.log.spinner?.(t);try{return await n()}finally{r?.stop()}}export{withSpinner};

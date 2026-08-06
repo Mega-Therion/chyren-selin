@@ -1,0 +1,4 @@
+function renderLinearInputRequests(e){return e.map(renderLinearInputRequest).join(`
+
+`)}function linearInputRequestSignal(e){let t=e.length===1?e[0]:void 0;return t?.options===void 0||t.options.length===0?{}:{signal:`select`,signalMetadata:{options:t.options.map(e=>({label:e.label,value:e.id}))}}}function renderLinearInputRequest(e){let t=[e.prompt];return e.options!==void 0&&e.options.length>0&&t.push(``,...e.options.map((e,t)=>{let n=e.description?` - ${e.description}`:``;return`${t+1}. ${e.label}${n}`})),e.allowFreeform===!0&&t.push(``,`You can also reply with a custom answer.`),t.join(`
+`)}export{linearInputRequestSignal,renderLinearInputRequests};

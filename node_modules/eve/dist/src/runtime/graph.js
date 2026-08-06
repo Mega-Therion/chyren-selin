@@ -1,0 +1,1 @@
+const ROOT_RUNTIME_AGENT_NODE_ID=`__root__`;function getResolvedRuntimeAgentNode(e,t){if(t===void 0||t===`__root__`)return e.root;let n=e.nodesByNodeId.get(t);if(n===void 0)throw Error(`Missing runtime agent node for node id "${t}".`);return n}export{ROOT_RUNTIME_AGENT_NODE_ID,getResolvedRuntimeAgentNode};

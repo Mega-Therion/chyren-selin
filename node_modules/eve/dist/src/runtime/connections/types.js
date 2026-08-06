@@ -1,0 +1,1 @@
+function defineInteractiveAuthorization(e){return{...e,principalType:`user`}}function supportsInteractiveAuthorization(e){return e?.startAuthorization!==void 0}export{defineInteractiveAuthorization,supportsInteractiveAuthorization};

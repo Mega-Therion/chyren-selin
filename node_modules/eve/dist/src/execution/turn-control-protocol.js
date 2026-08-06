@@ -1,0 +1,1 @@
+import{HookNotFoundError}from"#compiled/@workflow/errors/index.js";import{resumeHook}from"#internal/workflow/runtime.js";async function sendTurnControlStep(t){"use step";try{await resumeHook(t.controlToken,t.payload)}catch(e){if(!HookNotFoundError.is(e))throw e}}export{sendTurnControlStep};

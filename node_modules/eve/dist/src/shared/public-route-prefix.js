@@ -1,0 +1,1 @@
+const EVE_PUBLIC_ROUTE_PREFIX_ENV=`EVE_PUBLIC_ROUTE_PREFIX`;function normalizePublicRoutePrefix(e){let t=e?.trim();if(t===void 0||t.length===0)return;let n=(t.startsWith(`/`)?t:`/${t}`).replace(/\/+$/,``);return n.length===0?void 0:n}export{EVE_PUBLIC_ROUTE_PREFIX_ENV,normalizePublicRoutePrefix};

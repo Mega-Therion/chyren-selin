@@ -1,0 +1,1 @@
+import{isSubagentAdapterState}from"#execution/subagent-adapter-state.js";function resolveParentLineage(e,t){if(e===void 0)return;let n=t?.state;return{callId:e.callId,sessionId:e.sessionId,subagentName:isSubagentAdapterState(n)?n.subagentName:void 0,turnId:e.turn.id}}export{resolveParentLineage};

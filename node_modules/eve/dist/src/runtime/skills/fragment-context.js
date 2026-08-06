@@ -1,0 +1,1 @@
+const LOAD_SKILL_TOOL_NAME=`load_skill`;export{LOAD_SKILL_TOOL_NAME};

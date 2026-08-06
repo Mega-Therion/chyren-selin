@@ -1,0 +1,1 @@
+import{createDockerSandboxBackend}from"#execution/sandbox/bindings/local.js";function docker(e){return createDockerSandboxBackend({createOptions:e})}export{docker};

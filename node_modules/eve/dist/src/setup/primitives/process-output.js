@@ -1,0 +1,1 @@
+function createProcessOutputBuffer(e){let t={stdout:``,stderr:``};return{write(n,r){let i=`${t[n]}${r.toString(`utf8`)}`.split(/\r\n|\r|\n/);t[n]=i.pop()??``;for(let t of i)e({stream:n,text:t})},flush(){for(let n of[`stdout`,`stderr`]){let r=t[n];r!==``&&(e({stream:n,text:r}),t[n]=``)}}}}export{createProcessOutputBuffer};

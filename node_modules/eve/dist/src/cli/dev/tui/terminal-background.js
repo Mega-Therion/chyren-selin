@@ -1,0 +1,1 @@
+const BACKGROUND_COLOR_QUERY=`\x1B]11;?\x07`;function parseBackgroundColorReply(e){let t=/^11;rgb:([0-9a-f]{1,4})\/([0-9a-f]{1,4})\/([0-9a-f]{1,4})$/iu.exec(e.trim());if(t===null)return;let channel=e=>Math.round(Number.parseInt(e,16)/(16**e.length-1)*255);return{r:channel(t[1]),g:channel(t[2]),b:channel(t[3])}}export{BACKGROUND_COLOR_QUERY,parseBackgroundColorReply};

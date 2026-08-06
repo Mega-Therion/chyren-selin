@@ -1,0 +1,1 @@
+const EVE_PACKAGE_NAME=`eve`;export{EVE_PACKAGE_NAME};

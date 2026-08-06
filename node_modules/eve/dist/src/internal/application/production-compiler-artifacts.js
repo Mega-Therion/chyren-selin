@@ -1,0 +1,1 @@
+import{cp,mkdir}from"node:fs/promises";import{dirname,join}from"node:path";async function stageProductionCompilerArtifacts(e){let t=join(e.outputDir,`.eve`);await mkdir(dirname(t),{recursive:!0}),await cp(e.compilerArtifactsRoot,t,{recursive:!0})}export{stageProductionCompilerArtifacts};

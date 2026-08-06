@@ -1,0 +1,1 @@
+import{SKILL_BRAND}from"#shared/dynamic-tool-definition.js";function defineSkill(e){return Object.defineProperty(e,SKILL_BRAND,{value:!0}),e}export{defineSkill};

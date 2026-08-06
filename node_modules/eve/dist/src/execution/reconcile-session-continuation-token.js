@@ -1,0 +1,1 @@
+import{ContinuationTokenKey}from"#context/keys.js";function reconcileSessionContinuationToken(e,t){let n=e.get(ContinuationTokenKey);return n===void 0||n===t.continuationToken?t:{...t,continuationToken:n}}export{reconcileSessionContinuationToken};

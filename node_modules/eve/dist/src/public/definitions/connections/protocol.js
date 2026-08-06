@@ -1,0 +1,1 @@
+const PROTOCOL_KEY=Symbol.for(`eve.connection-protocol`);function stampConnectionProtocol(e,t){Object.defineProperty(e,PROTOCOL_KEY,{configurable:!0,value:t})}function readConnectionProtocol(e){if(typeof e==`object`&&e&&PROTOCOL_KEY in e){let t=e[PROTOCOL_KEY];if(t!==void 0)return t}return`mcp`}export{readConnectionProtocol,stampConnectionProtocol};

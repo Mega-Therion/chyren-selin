@@ -1,0 +1,1 @@
+import{buildSessionHandle}from"#channel/session.js";function buildAdapterContext(e,t){let n={ctx:t,state:e.state??{},session:buildSessionHandle(t)};return e.createAdapterContext?e.createAdapterContext(n):n}export{buildAdapterContext};

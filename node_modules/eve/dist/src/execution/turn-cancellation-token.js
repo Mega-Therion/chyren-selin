@@ -1,0 +1,1 @@
+function turnCancellationHookToken(e){return`${e}:cancel`}export{turnCancellationHookToken};

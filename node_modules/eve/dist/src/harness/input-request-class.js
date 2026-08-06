@@ -1,0 +1,1 @@
+function isApprovalRequest(e){return e.kind===`tool-approval`}function classifyInputRequest(e){switch(e.kind){case`tool-approval`:return`required`;case`session-limit`:return`required`;case`question`:return`dismissable`;default:return e.kind}}export{classifyInputRequest,isApprovalRequest};

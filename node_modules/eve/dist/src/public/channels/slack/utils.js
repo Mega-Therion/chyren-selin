@@ -1,0 +1,1 @@
+const MAX_HANDLED_EVENTS=1e4;function markEventHandled(e,t){if(t.add(e),t.size>MAX_HANDLED_EVENTS)for(;t.size>MAX_HANDLED_EVENTS/2;)t.delete(t.values().next().value)}export{markEventHandled};

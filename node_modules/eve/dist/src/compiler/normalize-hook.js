@@ -1,0 +1,1 @@
+import{stripLogicalPathExtension}from"../discover/filesystem.js";function compileHookEntry(e){return{exportName:e.exportName,logicalPath:e.logicalPath,slug:stripLogicalPathExtension(e.logicalPath).replace(/^hooks\//,``),sourceId:e.sourceId,sourceKind:`module`}}export{compileHookEntry};

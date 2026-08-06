@@ -1,0 +1,1 @@
+import{workflowEntryReference}from"#execution/workflow-runtime.js";var health_default=async e=>Response.json({ok:!0,status:`ready`,workflowId:workflowEntryReference.workflowId});export{health_default as default};

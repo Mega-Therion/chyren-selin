@@ -1,0 +1,1 @@
+const WEB_SEARCH_TOOL_KIND=`eve:web-search-tool`;function webSearch(e){return{kind:WEB_SEARCH_TOOL_KIND,provider:e.provider}}function isWebSearchToolDefinition(e){return typeof e==`object`&&!!e&&e.kind===WEB_SEARCH_TOOL_KIND}export{isWebSearchToolDefinition,webSearch};

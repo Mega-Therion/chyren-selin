@@ -1,0 +1,1 @@
+function extractCompletedResult(e){let t;for(let n of e)isResultCompletedEvent(n)&&(t=n.data.result);return t}function isResultCompletedEvent(e){return e.type===`result.completed`}export{extractCompletedResult};

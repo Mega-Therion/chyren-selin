@@ -1,0 +1,1 @@
+import{Readable}from"node:stream";function normalizeVercelReadStream(t){if(t===null||isWebReadableStream(t))return t;if(t instanceof Readable)return Readable.toWeb(t);throw TypeError(`Vercel Sandbox returned an unsupported file stream.`)}function isWebReadableStream(e){return`getReader`in e&&typeof e.getReader==`function`}export{normalizeVercelReadStream};

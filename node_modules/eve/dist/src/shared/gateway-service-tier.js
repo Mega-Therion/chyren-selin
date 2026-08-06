@@ -1,0 +1,1 @@
+function readGatewayServiceTier(e){if(typeof e!=`object`||!e||Array.isArray(e))return{kind:`standard`};let t=e.gateway;if(typeof t!=`object`||!t||Array.isArray(t))return{kind:`standard`};let n=t.serviceTier;return typeof n==`string`?n===`priority`?{kind:`priority`}:{kind:`custom`,value:n}:{kind:`standard`}}export{readGatewayServiceTier};

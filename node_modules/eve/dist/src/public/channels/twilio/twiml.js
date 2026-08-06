@@ -1,0 +1,1 @@
+import{emptyTwilioResponse,escapeXml,gatherSpeechTwilioResponse,sayTwilioResponse,twilioResponse}from"#compiled/@chat-adapter/twilio/voice.js";function twimlResponse(e){return twilioResponse(e)}export{emptyTwilioResponse,escapeXml,gatherSpeechTwilioResponse,sayTwilioResponse,twimlResponse};

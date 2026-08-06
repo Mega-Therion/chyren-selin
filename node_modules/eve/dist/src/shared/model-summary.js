@@ -1,0 +1,1 @@
+function formatModelSummary(e){let t=e.reasoning===void 0?``:`@${e.reasoning}`,n=e.fastGlyph===void 0?``:` ${e.fastGlyph}`;return`${e.model}${t}${n}`}export{formatModelSummary};

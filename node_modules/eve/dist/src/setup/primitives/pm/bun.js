@@ -1,0 +1,1 @@
+import{applyNoProjectConfiguration,resolveStandardInvocation}from"./shared.js";const bunPackageManager={kind:`bun`,scaffoldFiles:{},applyProjectConfiguration:applyNoProjectConfiguration,devArguments:()=>[`x`,`eve`,`dev`],installArguments:()=>[`install`],prepareArguments:(e,t)=>t,resolveInvocation:e=>resolveStandardInvocation(`bun`,e)};export{bunPackageManager};

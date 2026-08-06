@@ -1,0 +1,1 @@
+async function streamToBuffer(e){let t=[];for await(let n of e)t.push(n);return Buffer.concat(t)}function bufferToStream(e){return new ReadableStream({start(t){t.enqueue(e),t.close()}})}export{bufferToStream,streamToBuffer};

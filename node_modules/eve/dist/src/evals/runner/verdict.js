@@ -1,0 +1,1 @@
+function computeEvalVerdict(e){if(e.error!==void 0)return`failed`;let t=!1;for(let n of e.assertions)if(!n.passed){if(n.severity===`gate`)return`failed`;t=!0}return e.skipReason===void 0?t?`scored`:`passed`:`skipped`}export{computeEvalVerdict};

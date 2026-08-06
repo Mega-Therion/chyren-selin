@@ -1,0 +1,1 @@
+import{cancelSessionTimeoutStep,startSessionTimeoutStep}from"#execution/session-timeout-steps.js";function createSessionTimeoutControl(t){let n;return{async dispose(){if(n===void 0)return;let e=n;n=void 0,await cancelSessionTimeoutStep({runId:e.runId})},async start(){n===void 0&&(n=await startSessionTimeoutStep(t))}}}export{createSessionTimeoutControl};

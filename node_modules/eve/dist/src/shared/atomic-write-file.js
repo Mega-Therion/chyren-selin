@@ -1,0 +1,1 @@
+import{rm,writeFile}from"node:fs/promises";import{renameWithTransientBusyRetry}from"#shared/rename-with-retry.js";async function atomicWriteFile(t,n){let r=`${t}.tmp-${process.pid}-${Date.now().toString(36)}`;await writeFile(r,n);try{await renameWithTransientBusyRetry(r,t)}catch(e){throw await rm(r,{force:!0}).catch(()=>void 0),e}}export{atomicWriteFile};

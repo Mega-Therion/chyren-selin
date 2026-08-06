@@ -1,0 +1,1 @@
+function always(){return()=>`user-approval`}function never(){return()=>`not-applicable`}function once(){return({approvedTools:e,toolName:t})=>e.has(t)?`not-applicable`:`user-approval`}export{always,never,once};

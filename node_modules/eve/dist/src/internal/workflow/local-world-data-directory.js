@@ -1,0 +1,1 @@
+import{join}from"node:path";const LOCAL_WORKFLOW_WORLD_DATA_DIRECTORY_RELATIVE_PATH=`.eve/.workflow-data`;function resolveLocalWorkflowWorldDataDirectory(e){return join(e,LOCAL_WORKFLOW_WORLD_DATA_DIRECTORY_RELATIVE_PATH)}export{LOCAL_WORKFLOW_WORLD_DATA_DIRECTORY_RELATIVE_PATH,resolveLocalWorkflowWorldDataDirectory};

@@ -1,0 +1,1 @@
+function messageToUserContent(e){let t=e.attachments??[];if(t.length===0)return e.text;let n=[];e.text&&n.push({text:e.text,type:`text`});for(let e of t)e.url&&n.push({data:new URL(e.url),filename:e.name,mediaType:e.mimeType??`application/octet-stream`,type:`file`});return n.length>0?n:e.text}export{messageToUserContent};

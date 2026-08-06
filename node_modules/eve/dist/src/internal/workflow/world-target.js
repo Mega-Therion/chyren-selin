@@ -1,0 +1,1 @@
+function resolveWorkflowWorldImport(e){return e===`local`?`@workflow/world-local`:e===`vercel`?`@workflow/world-vercel`:e}export{resolveWorkflowWorldImport};

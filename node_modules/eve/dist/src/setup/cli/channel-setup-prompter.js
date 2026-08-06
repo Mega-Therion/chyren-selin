@@ -1,0 +1,1 @@
+async function withPhase(e,t,n,r){let i=e.spinner?.(t,r);i||e.message(t);try{return await n()}finally{i?.stop()}}export{withPhase};

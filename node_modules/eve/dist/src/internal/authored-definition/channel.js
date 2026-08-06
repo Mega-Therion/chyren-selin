@@ -1,0 +1,1 @@
+import{isCompiledChannel}from"#channel/compiled-channel.js";function normalizeChannelDefinition(e,t){if(!isCompiledChannel(e))throw Error(`${t} Use \`defineChannel({ routes, ... })\` (or a wrapper like \`slackChannel\` / \`eveChannel\`) — bare \`{ fetch, receive? }\` channel objects are no longer supported.`);return e}export{normalizeChannelDefinition};

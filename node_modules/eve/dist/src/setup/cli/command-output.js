@@ -1,0 +1,1 @@
+function createPromptCommandOutput(e){return({text:t})=>e.commandOutput(t)}export{createPromptCommandOutput};

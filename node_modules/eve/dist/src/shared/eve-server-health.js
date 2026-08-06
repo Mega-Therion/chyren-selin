@@ -1,0 +1,1 @@
+import{EVE_HEALTH_ROUTE_PATH}from"#protocol/routes.js";async function isEveServerHealthy(e,t={}){let n=AbortSignal.timeout(t.timeoutMs??1e3),r=t.signal===void 0?n:AbortSignal.any([t.signal,n]);try{let t=new URL(EVE_HEALTH_ROUTE_PATH,e).toString();return(await fetch(t,{redirect:`error`,signal:r})).ok}catch{return!1}}export{isEveServerHealthy};
