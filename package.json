@@ -1,0 +1,26 @@
+{
+  "name": "chyren-selin",
+  "version": "1.0.0",
+  "description": "![SELIN Hero](Visuals/hero.png)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mega-Therion/chyren-selin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mega-Therion/chyren-selin/issues"
+  },
+  "homepage": "https://github.com/Mega-Therion/chyren-selin#readme",
+  "dependencies": {
+    "ai": "^7.0.55"
+  }
+}
