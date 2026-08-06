@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELIN - Speed Insights Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #00ff88;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 0.5rem;
+        }
+        .container {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        code {
+            background: #2a2a2a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+        }
+        .info {
+            background: #2a3a2a;
+            padding: 1rem;
+            border-left: 4px solid #00ff88;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 SELIN with Vercel Speed Insights</h1>
+        
+        <div class="info">
+            <p><strong>Speed Insights Enabled</strong></p>
+            <p>This page demonstrates Vercel Speed Insights integration for SELIN web interfaces.</p>
+        </div>
+
+        <h2>About SELIN</h2>
+        <p>
+            <strong>SELIN</strong> is an open-source <strong>Reflect-It-Yourself Unit (RIYU)</strong> — 
+            a sovereign, local-first AI governance node that verifies its own outputs through 
+            mathematical proof before presenting them to you.
+        </p>
+
+        <h2>Performance Monitoring</h2>
+        <p>
+            This page includes Vercel Speed Insights to monitor:
+        </p>
+        <ul>
+            <li>Page load performance</li>
+            <li>First Contentful Paint (FCP)</li>
+            <li>Largest Contentful Paint (LCP)</li>
+            <li>Cumulative Layout Shift (CLS)</li>
+            <li>First Input Delay (FID)</li>
+            <li>Time to First Byte (TTFB)</li>
+        </ul>
+
+        <p>
+            View metrics in your Vercel dashboard after deploying this application.
+        </p>
+    </div>
+
+    <!-- Vercel Speed Insights -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
