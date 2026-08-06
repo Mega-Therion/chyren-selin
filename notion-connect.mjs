@@ -2,7 +2,7 @@ import { getToken } from '@vercel/connect';
 
 export async function getNotionUserToken(userId) {
   try {
-    const token = await getToken('oauth/notion', {
+    const token = await getToken('mcp.notion.com/aqua-harbor', {
       subject: { type: 'user', id: userId },
     });
     return token;
