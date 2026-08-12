@@ -1,94 +1,64 @@
-# SELIN Series — QUICKSTART
+# SELIN Quickstart
 
-## What is SELIN?
-
-**SELIN** (Sovereign Encrypted Localized Identity Node) is an open-source ARCHON runtime.  
-It governs AI model responses through the **ADCCL** (Anti-Drift Cognitive Control Loop),  
-rejecting outputs that fall below the chiral floor `χ ≥ 1/√2 ≈ 0.7071`.
-
-**This is not a chatbot.** It is a governance engine.
-
----
-
-## Requirements
-
-- Rust 1.79+ (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-- Docker + Docker Compose (for the full stack)
-- SQLite 3 (bundled in the binary via rusqlite — no install needed)
-
----
-
-## Option A: Local Binary (Direct)
+## 1. Pull latest
 
 ```bash
-# Clone and build
 git clone https://github.com/Mega-Therion/chyren-selin.git
 cd chyren-selin
+# or: git pull origin main
+```
+
+See [LOCAL_SYNC.md](./LOCAL_SYNC.md) for dual-repo (SELIN + MVPC-X) sync.
+
+## 2. Build CLI
+
+```bash
 cargo build --release -p selin
-
-# Initialize (4-step interactive wizard)
-./target/release/selin init
-
-# Verify your model endpoint
-./target/release/selin preflight
-
-# Run a governed task
-./target/release/selin run "What is the speed of light?"
-
-# Audit a specific run (replace <run_id> with what `run` printed)
-./target/release/selin audit <run_id>
+export SELIN=./target/release/selin
 ```
 
----
-
-## Option B: Docker Stack (Recommended)
-
-Single command — brings up Ollama + ARCHON node:
+## 3. Init RIYU (once)
 
 ```bash
-git clone https://github.com/Mega-Therion/chyren-selin.git
-cd chyren-selin
-docker compose up
+$SELIN init
 ```
 
-This starts:
-- `local-llm` (Ollama on port 11434) — your local model server
-- `selin-archon` (ARCHON node on port 8080) — the governance engine
+## 4. Model preflight
 
-Pull a model once (inside the running container):
 ```bash
-docker exec selin-local-llm ollama pull deepseek-r1:1.5b
+# Ollama example
+export MODEL_ENDPOINT=http://127.0.0.1:11434
+$SELIN preflight
 ```
 
-Then on your host:
+## 5. Govern a prompt (generative / χ)
+
 ```bash
-export MODEL_ENDPOINT=http://localhost:11434
-./target/release/selin init   # or cargo run -p selin -- init
+$SELIN run "Explain the ADCCL chiral invariant in one paragraph."
 ```
 
----
+## 6. Formal / claim artifacts (mechanical — local MVPC-X)
 
-## The ADCCL Gate
-
-Every response is evaluated:
-
+```bash
+# Install MVPC-X separately on this machine first
+export MVPC_BIN=mvpc
+$SELIN verify-artifact ./path/to/File.lean
+$SELIN verify-artifact ./path/to/claims.py --policy strict --json
 ```
-χ = √[(V² + (1-J)²) / 2]
+
+Full contract: [MVPC_INTEGRATION.md](./MVPC_INTEGRATION.md).
+
+## 7. HTTP (local-first)
+
+```bash
+$SELIN serve --bind 127.0.0.1 --port 8080
+curl -s localhost:8080/health
 ```
 
-Where:
-- **V** = verifiability score (0.0–1.0): how factually grounded is this output?
-- **J** = drift/hallucination penalty (0.0–1.0): how likely is this a confabulation?
-- **χ** must be ≥ **0.7071** (1/√2) to pass
+Docker: `docker compose up -d` binds `0.0.0.0:8080` inside the container network only as published.
 
-Outputs below the floor are **rejected and suppressed**. Run `selin audit <run_id>` to see the exact computation for any run.
+## 8. Audit a run
 
----
-
-## Environment Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `MODEL_ENDPOINT` | `http://localhost:11434` | Ollama or OpenAI-compatible endpoint |
-| `ADCCL_THRESHOLD` | `0.7071` | Chiral floor (do not lower below 1/√2) |
-| `HOME` | (system) | SELIN data stored in `$HOME/.selin/` |
+```bash
+$SELIN audit <run_id>
+```

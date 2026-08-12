@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: selin-archon
     depends_on:
       local-llm:
         condition: service_healthy
@@ -13,10 +12,14 @@ services:
     environment:
       MODEL_ENDPOINT: http://local-llm:11434
       ADCCL_THRESHOLD: "0.7071"
+      # Optional: mount MVPC into the image yourself if you need verify-artifact in-container
+      # MVPC_BIN: /usr/local/bin/mvpc
     volumes:
       - selin_data:/data/selin
     ports:
       - "8080:8080"
+    # Must listen on all interfaces inside the container network
+    command: ["serve", "--bind", "0.0.0.0", "--port", "8080"]
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
       interval: 15s
@@ -25,7 +28,7 @@ services:
       start_period: 20s
     restart: unless-stopped
 
-  # One-shot: pull the default model so the user doesn't have to `docker exec`.
+  # One-shot: pull the default model so the user doesn't have to docker exec.
   model-pull:
     image: ollama/ollama:latest
     depends_on:
@@ -38,24 +41,22 @@ services:
     command: ['echo "Pulling $${SELIN_MODEL}…"; ollama pull "$${SELIN_MODEL}"']
     restart: "no"
 
-  # Local LLM node (Ollama) — serves the model endpoint.
+  # Local LLM node (Ollama)
   local-llm:
     image: ollama/ollama:latest
     container_name: selin-local-llm
     volumes:
-      - ollama_storage:/root/.ollama
+      - ollama_data:/root/.ollama
     ports:
       - "11434:11434"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      test: ["CMD", "ollama", "list"]
       interval: 10s
       timeout: 5s
-      retries: 12
-      start_period: 30s
+      retries: 10
+      start_period: 15s
     restart: unless-stopped
 
 volumes:
-  ollama_storage:
-    name: ollama_storage
   selin_data:
-    name: selin_data
+  ollama_data:
