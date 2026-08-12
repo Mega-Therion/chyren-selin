@@ -1,12 +1,28 @@
-# Rust build artifacts
-/target
-target/
-Cargo.lock
+# Build
+/target/
+**/*.rs.bk
 
-# User-generated SELIN data (never commit personal identity data)
+# Node (never commit install trees)
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets / local RIYU state
+.env
+.env.*
+basepoint.json
+*.db
+*.sqlite
 .selin/
+data/
 
-# Docs build
-docs/build/
-.vercel
-.env*
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
