@@ -1,142 +1,95 @@
-# SELIN / ARCHON
+# Chyren-Archon
 
-## Sovereign Encrypted Localized Identity Node
+**Public open-source RIYU runtime** (SELIN series / ARCHON governor).
 
-![SELIN Hero](Visuals/hero.png)
+> Local-first. Encrypted identity seal. Fail-closed ADCCL. Optional mechanical proofs via MVPC-X.
 
-**SELIN** is an open-source **Reflect-It-Yourself Unit (RIYU)** — a sovereign, local-first AI governance node that verifies its own outputs through mathematical proof before presenting them to you.
-
-It is designed for **verifiable accuracy over illusionary streaming speed**, sacrificing instant ungrounded token output in favor of multi-pass mathematical verification governed by the **ARCHON** runtime.
-
-SELIN provides a localized, sovereign identity core that ensures your intelligence remains yours, your data remains local, and your reasoning remains grounded.
+**GitHub repo name:** `chyren-selin` · **Product name:** Chyren-Archon  
+Binary: `selin`
 
 ---
 
-## ✨ Core Concepts
+## Product triangle
 
-*   **RIYU (Reflect It Yourself Unit):** Every person who downloads SELIN gets a unique, cryptographically unique sovereign instance. No two RIYUs are the same. All run the same SELIN core on the same ARCHON architecture.
-*   **ADCCL (Anti-Drift Cognitive Control Loop):** The universal 7-step structure-before-narration verification gate:
-    1. Provisional risk classification.
-    2. Independent generation.
-    3. Independent verification (separate model, injection-resistant).
-    4. Chiral invariant computation (V, J → χ).
-    5. Three-tier action gate (Veto / Advisory / Accountability Lock).
-    6. Persistence to local audit store.
-    7. Proof-trace rendering on demand.
-*   **Sovereign Identity Protocol:** The identity basepoint mechanism. On first boot (`selin init`), it generates an encrypted identity seal from your personal values using CSPRNG + HKDF-SHA256.
-*   **Fail-Closed Verification:** If the independent verifier is unavailable or returns unparseable output, the system defaults to **rejection**. Missing verification = failed verification.
+| Product | Repo | For whom |
+|---------|------|----------|
+| **Chyren-Archon** (this) | [chyren-selin](https://github.com/Mega-Therion/chyren-selin) | Anyone who wants a **sovereign node** |
+| **MVPC-X** | [MVPC-X](https://github.com/Mega-Therion/MVPC-X) | Anyone who only wants a **proof/claim tool** |
+| **Chyren-Aeon** | private | Owner only — full private OS |
+
+Archon **can** call MVPC locally. MVPC **never** requires Archon.  
+See [PRODUCT_TRIANGLE.md](PRODUCT_TRIANGLE.md) · [DEPENDENCIES.md](DEPENDENCIES.md) · [docs/MVPC_INTEGRATION.md](docs/MVPC_INTEGRATION.md).
 
 ---
 
-## 🛡️ ARCHON Governance
+## What you get
 
-The **ARCHON** runtime enforces a bi-cameral governance framework:
+- `selin init` — RIYU identity basepoint (CSPRNG / HKDF seal)
+- `selin run` / `selin serve` — ADCCL govern (independent verifier, fail-closed χ)
+- Three-tier action gate + optional sovereign signoff
+- Local myelin run log (SQLCipher-class store where enabled)
+- `selin verify-artifact` — **local** MVPC-X for `.lean` / `.v` / `.thy` / claims
 
-1.  **Provisional Risk Gate:** Pre-flight risk classification (safe / risky / severe).
-2.  **Independent ADCCL Gate:** Answers are scored by a separate verification pass. Scoring **fails closed** — an unparseable or missing score rejects the output.
-3.  **Synthetic Judiciary:** A multi-layered framework decoupling provisional safety from immutable legal ratification.
-
-### The Chiral Invariant
-
-```
-χ = √((V² + (1-J)²) / 2) ≥ 1/√2
-```
-
-Where **V** = verification score (grounding quality) and **J** = jitter (deviation from expected behavior). The invariant is "chiral" because V and J are asymmetric — swapping them gives a different result, capturing the fact that a well-grounded but erratic answer is qualitatively different from a poorly-grounded but stable one.
+**Not a chatbot.** Verification before narration. See onboarding banners and docs.
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
 ```bash
-# 1. Clone
 git clone https://github.com/Mega-Therion/chyren-selin.git
 cd chyren-selin
-
-# 2. Build
-cargo build --release
-
-# 3. Initialize your sovereign RIYU
+cargo build --release -p selin
 ./target/release/selin init
-
-# 4. Run a governed task
-./target/release/selin run "Explain the chiral invariant."
-
-# 5. View the proof trace
-./target/release/selin audit
-
-# 6. Verify your LLM endpoint compliance
 ./target/release/selin preflight
-
-# 7. (Optional) Start the HTTP server
-./target/release/selin serve --port 8080
+./target/release/selin run "Explain ADCCL in one paragraph."
 ```
 
-This boots the ARCHON **HTTP server** alongside a local Ollama instance.
-
-### API Example
+### Formal files (optional MVPC-X)
 
 ```bash
-curl -X POST http://localhost:8080/govern \
-  -H "Content-Type: application/json" \
-  -d '{"prompt": "Explain the ADCCL chiral invariant."}'
+# install MVPC-X separately
+pip install -e /path/to/MVPC-X[all]
+export MVPC_BIN=mvpc
+./target/release/selin verify-artifact ./path/to/File.lean
 ```
 
----
+### HTTP (local-first)
 
-## 📊 Governance Pipeline
-
-```
-Prompt → Risk Gate → Generate → Independent Verify → χ Computation → Three-Tier Gate → Persist → Audit
+```bash
+./target/release/selin serve --bind 127.0.0.1 --port 8080
 ```
 
-- **Fail-Closed:** Missing verification = rejection. Always.
-- **Independent Verification:** The verifier is a separate model call, injection-resistant.
-- **Local-First:** All data stays on your machine. No cloud, no telemetry, no phone-home.
+Docker: `docker compose up -d` (binds `0.0.0.0` *inside* the container network).
+
+More: [docs/QUICKSTART.md](docs/QUICKSTART.md) · [docs/LOCAL_SYNC.md](docs/LOCAL_SYNC.md)
 
 ---
 
-## 🔐 Security & Sovereignty
+## Architecture (short)
 
-- **At-Rest Encryption:** The Myelin SQLite store supports encryption via SQLCipher. Set the `SELIN_DB_KEY` environment variable to enable encryption (see `selin init --help`).
-- **No Phone-Home:** SELIN never sends your data anywhere. No telemetry, no analytics, no crash reports.
-- **Identity Seal:** Your RIYU's identity is cryptographically unique (CSPRNG + HKDF-SHA256). Nobody can impersonate your node.
+OmegA-class layers live *inside* the node (not separate installs):
 
----
+| Concern | Name |
+|---------|------|
+| Boundary governance | AEGIS-class shell (Rust) |
+| Identity / continuity OS | AEON-class runtime concepts |
+| Think/speak gate | **ADCCL** + χ |
+| Run memory | **Myelin** store |
+| Formal artifacts | **MVPC-X** (external binary) |
 
-## 📂 Repository Structure
-
-- `cli/`: Command-line interface (init, run, audit, serve).
-- `archon_kernel/`: Core Rust logic for ADCCL, risk, and verification.
-- `docs/`: Architecture, air gap policy, and quickstart guides.
-- `scripts/`: Import guard, CI checks.
-- `templates/`: Terms of Sovereignty and Myelin schema templates.
-- `Visuals/`: Hero image and diagrams.
+Canon background: OmegA four-layer papers (archived upstream) + Chyren system canon.
 
 ---
 
-## 🌐 The Sovereign Mesh
+## Security & privacy
 
-SELIN RIYUs can optionally connect to a decentralized mesh network. On the mesh, RIYUs share **governance verdicts only** — χ scores, pass/fail status, proof status counts. Personal data never crosses the mesh. No prompts, no vectors, no identity seals.
-
-**The mesh shares verdicts. The mesh never shares people.**
-
----
-
-## 📜 License
-
-Apache 2.0 — free for all, forever.
-
-> **ARCHON Protects. You Govern. SELIN.**
+- [docs/AIR_GAP_POLICY.md](docs/AIR_GAP_POLICY.md) — no personal AEON data in this tree  
+- [SECURITY.md](SECURITY.md) · [PRIVACY.md](PRIVACY.md)  
+- Prefer `127.0.0.1` for `serve` unless you knowingly expose a node  
 
 ---
 
-## 📖 Documentation
+## License
 
-- [System Architecture](docs/SYSTEM_ARCHITECTURE.md) — what ARCHON, SELIN, RIYU, and AEON are
-- [Contributing](CONTRIBUTING.md) — how to contribute to SELIN
-- [Security Policy](SECURITY.md) — how to report vulnerabilities
-- [Code of Conduct](CODE_OF_CONDUCT.md) — community standards
-- [Air Gap Policy](docs/AIR_GAP_POLICY.md) — bilateral data isolation contract
-- [Quickstart Guide](docs/QUICKSTART.md) — get running in 5 minutes
-- [Synthetic Judiciary Spec](docs/SYNTHETIC_JUDICIARY_SPEC.md) — governance framework details
+See [LICENSE](LICENSE) (Apache-2.0 class open distribution).
