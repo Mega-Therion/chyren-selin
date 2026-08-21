@@ -38,6 +38,9 @@ enum Commands {
         /// Bind address (default 127.0.0.1 local-first; use 0.0.0.0 only knowingly)
         #[arg(long, default_value = "127.0.0.1")]
         bind: String,
+        /// Optional API Key for HTTP authentication (defaults to ARCHON_API_KEY env)
+        #[arg(long)]
+        api_key: Option<String>,
     },
     /// Mechanically audit a formal/claim artifact via local MVPC-X (no network)
     #[command(name = "verify-artifact")]
@@ -65,7 +68,11 @@ async fn main() {
         Commands::Preflight => preflight::execute_preflight().await,
         Commands::Run { prompt } => run::execute_run(&prompt).await,
         Commands::Audit { run_id } => audit::execute_audit(&run_id),
-        Commands::Serve { port, bind } => server::serve_bind(&bind, port).await,
+        Commands::Serve {
+            port,
+            bind,
+            api_key,
+        } => server::serve_bind(&bind, port, api_key).await,
         Commands::VerifyArtifact {
             path,
             policy,

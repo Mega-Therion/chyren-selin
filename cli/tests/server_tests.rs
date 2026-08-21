@@ -21,7 +21,10 @@ fn test_sanitize_prompt_oversized_rejected() {
     let large_prompt = "a".repeat(35_000);
     let res = sanitize_prompt(&large_prompt);
     assert!(res.is_err());
-    assert_eq!(res.unwrap_err(), "prompt exceeds maximum allowed byte limit (32KB)");
+    assert_eq!(
+        res.unwrap_err(),
+        "prompt exceeds maximum allowed byte limit (32KB)"
+    );
 }
 
 #[test]

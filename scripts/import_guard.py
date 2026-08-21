@@ -90,8 +90,20 @@ PII_CONTENT_PATTERNS = [
     # AEON-specific file paths
     (re.compile(r'\.chyren/', re.IGNORECASE), "chyren_directory"),
     (re.compile(r'/home/|/Users/', re.IGNORECASE), "home_directory"),
-    # Personal credentials
-    (re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH |PGP )?PRIVATE KEY-----'), "private_key"),
+    # AWS Access Key ID
+    (re.compile(r"\bAKIA[0-9A-Z]{16}\b"), "AWS Access Key"),
+    # General secret assignment patterns (e.g. api_key = "...", SELIN_API_KEY = "...")
+    (
+        re.compile(
+            r"""(?i)\b(?:api[_-]?key|secret[_-]?key|auth[_-]?token|access[_-]?token)\s*[:=]\s*["'][A-Za-z0-9_\-]{16,}["']"""
+        ),
+        "Plaintext Secret Assignment",
+    ),
+    # Private Key header
+    (
+        re.compile(r"-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+        "Private Key Block",
+    ),
     (re.compile(r'sk-[a-zA-Z0-9]{20,}'), "api_key"),
     (re.compile(r'eyJ[a-zA-Z0-9_-]{10,}\.eyJ'), "jwt_token"),
     (re.compile(r'AKIA[0-9A-Z]{16}'), "aws_key"),

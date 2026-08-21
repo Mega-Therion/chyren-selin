@@ -28,6 +28,18 @@ pub struct GovernConfig {
     pub signoff_phrase: Option<String>,
 }
 
+impl GovernConfig {
+    /// Helper to resolve verifier endpoint (env VERIFIER_ENDPOINT or fallback to primary endpoint)
+    pub fn verifier_endpoint(&self) -> String {
+        std::env::var("VERIFIER_ENDPOINT").unwrap_or_else(|_| self.endpoint.clone())
+    }
+
+    /// Helper to resolve verifier model (env VERIFIER_MODEL or fallback to primary model)
+    pub fn verifier_model(&self) -> String {
+        std::env::var("VERIFIER_MODEL").unwrap_or_else(|_| self.model.clone())
+    }
+}
+
 /// The structured result of governing one prompt. Serializes directly as the
 /// HTTP response body; the CLI renders its own view from the same struct.
 #[derive(Serialize, Clone)]
@@ -88,13 +100,14 @@ pub async fn govern(client: &Client, cfg: &GovernConfig, prompt: &str) -> Govern
 
     // 3. Independent verification (separate, injection-resistant call).
     let verifier_prompt = build_verifier_prompt(prompt, &answer);
-    let (v, j, source) = match call_model(client, &cfg.endpoint, &cfg.model, &verifier_prompt).await
-    {
+    let v_endpoint = cfg.verifier_endpoint();
+    let v_model = cfg.verifier_model();
+    let (v, j, source) = match call_model(client, &v_endpoint, &v_model, &verifier_prompt).await {
         Ok(vraw) => match AdaptiveResilientFormatter::parse_and_repair_json(&vraw)
             .ok()
             .and_then(|json| extract_scores(&json))
         {
-            Some((v, j)) => (v, j, "verifier-scored".to_string()),
+            Some((v, j)) => (v, j, format!("verifier-scored ({v_model})")),
             None => (
                 FAIL_CLOSED.0,
                 FAIL_CLOSED.1,
@@ -222,17 +235,22 @@ async fn persist(
         report.passed,
         report.rejection_reason.clone(),
     );
-    let _ = tokio::task::spawn_blocking(move || {
-        if let Ok(conn) = open_myelin() {
-            let _ = conn.execute(
-                "INSERT INTO adccl_runs (run_id, created_at, prompt_hash, v_score, j_penalty, chi_invariant, passed, rejection_reason, model_endpoint, raw_output_snippet)
-                 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",
-                rusqlite::params![
-                    run_id, Utc::now().to_rfc3339(), prompt_hash, v, j, chi,
-                    if passed { 1 } else { 0 }, reason, endpoint, snippet,
-                ],
-            );
-        }
+    let res = tokio::task::spawn_blocking(move || -> Result<(), String> {
+        let conn = open_myelin().map_err(|e| format!("open_myelin failed: {e}"))?;
+        conn.execute(
+            "INSERT INTO adccl_runs (run_id, created_at, prompt_hash, v_score, j_penalty, chi_invariant, passed, rejection_reason, model_endpoint, raw_output_snippet)
+             VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)",
+            rusqlite::params![
+                run_id, Utc::now().to_rfc3339(), prompt_hash, v, j, chi,
+                if passed { 1 } else { 0 }, reason, endpoint, snippet,
+            ],
+        )
+        .map_err(|e| format!("insert adccl_runs failed: {e}"))?;
+        Ok(())
     })
     .await;
+
+    if let Ok(Err(e)) = res {
+        eprintln!("[warn] myelin persist error: {e}");
+    }
 }

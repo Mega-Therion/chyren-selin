@@ -17,7 +17,7 @@ services:
     volumes:
       - selin_data:/data/selin
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     # Must listen on all interfaces inside the container network
     command: ["serve", "--bind", "0.0.0.0", "--port", "8080"]
     healthcheck:
@@ -48,7 +48,7 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     ports:
-      - "11434:11434"
+      - "127.0.0.1:11434:11434"
     healthcheck:
       test: ["CMD", "ollama", "list"]
       interval: 10s

@@ -60,15 +60,53 @@ async fn run_init() -> Result<(), String> {
     println!("╚══════════════════════════════════════════════════════════════╝");
     println!();
 
-    // Guard: refuse to silently clobber an existing identity (was INSERT OR
-    // IGNORE, which kept the old seal while telling the user they'd re-initialized).
-    let force = std::env::var("SELIN_FORCE_REINIT").is_ok();
-    if basepoint_path().exists() && !force {
-        return Err(format!(
-            "an identity already exists at {}.\n    Re-initializing replaces your basepoint seal. \
-             To proceed intentionally, re-run with SELIN_FORCE_REINIT=1.",
-            basepoint_path().display()
-        ));
+    // Check for existing identity
+    if basepoint_path().exists() {
+        if std::env::var("SELIN_FORCE_REINIT").unwrap_or_default() != "1" {
+            return Err(format!(
+                "an identity already exists at {}.\n    Re-initializing replaces your basepoint seal. \
+                 To proceed intentionally, re-run with SELIN_FORCE_REINIT=1.",
+                basepoint_path().display()
+            ));
+        }
+        // Create timestamped backup of old identity before overwriting
+        let timestamp = chrono::Utc::now().format("%Y%m%d_%H%M%S").to_string();
+        let bp_backup = selin_dir().join(format!("basepoint.json.bak.{timestamp}"));
+        if let Err(e) = std::fs::copy(basepoint_path(), &bp_backup) {
+            eprintln!("[warn] Could not backup existing basepoint.json: {e}");
+        } else {
+            eprintln!(
+                "[info] Backed up existing basepoint to {}",
+                bp_backup.display()
+            );
+            #[cfg(unix)]
+            {
+                use std::os::unix::fs::PermissionsExt;
+                let _ =
+                    std::fs::set_permissions(&bp_backup, std::fs::Permissions::from_mode(0o600));
+            }
+        }
+        let myelin_file = myelin_db_path();
+        if myelin_file.exists() {
+            let myelin_backup = selin_dir().join(format!("myelin.db.bak.{timestamp}"));
+            if let Err(e) = std::fs::copy(&myelin_file, &myelin_backup) {
+                eprintln!("[warn] Could not backup existing myelin.db: {e}");
+            } else {
+                eprintln!(
+                    "[info] Backed up existing myelin.db to {}",
+                    myelin_backup.display()
+                );
+                #[cfg(unix)]
+                {
+                    use std::os::unix::fs::PermissionsExt;
+                    let _ = std::fs::set_permissions(
+                        &myelin_backup,
+                        std::fs::Permissions::from_mode(0o600),
+                    );
+                }
+            }
+        }
+        eprintln!("[warn] Overwriting existing identity (SELIN_FORCE_REINIT=1)");
     }
 
     println!("[1/4] Identity Directives");
@@ -96,6 +134,11 @@ async fn run_init() -> Result<(), String> {
 
     fs::create_dir_all(selin_dir())
         .map_err(|e| format!("could not create {}: {e}", selin_dir().display()))?;
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let _ = fs::set_permissions(selin_dir(), fs::Permissions::from_mode(0o700));
+    }
 
     // Generate a 32-byte database encryption key (SQLCipher).
     // Stored in basepoint.json alongside the seal — both are local-only.
@@ -120,6 +163,11 @@ async fn run_init() -> Result<(), String> {
             .map_err(|e| format!("could not serialize basepoint: {e}"))?,
     )
     .map_err(|e| format!("could not write {}: {e}", basepoint_path().display()))?;
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let _ = fs::set_permissions(basepoint_path(), fs::Permissions::from_mode(0o600));
+    }
 
     println!("      Seal (HMAC-SHA256): {seal}");
     println!("      Written to: {}", basepoint_path().display());
@@ -143,6 +191,11 @@ async fn run_init() -> Result<(), String> {
     let conn = open_myelin()?;
     conn.execute_batch(schema_sql)
         .map_err(|e| format!("could not apply myelin schema: {e}"))?;
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let _ = fs::set_permissions(myelin_db_path(), fs::Permissions::from_mode(0o600));
+    }
 
     let (schema_ok, chi_ok, latency) = match &preflight {
         PreflightResult::Pass { latency_ms, .. } => (1, 1, *latency_ms as i64),

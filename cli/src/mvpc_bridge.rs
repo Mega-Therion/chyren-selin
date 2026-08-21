@@ -72,7 +72,10 @@ pub fn verify_artifact(path: &str, policy: &str, json_stdout: bool, run_id: Opti
 
     let out_root = out_dir();
     if let Err(e) = fs::create_dir_all(&out_root) {
-        eprintln!("  [warn] could not create witness dir {}: {e}", out_root.display());
+        eprintln!(
+            "  [warn] could not create witness dir {}: {e}",
+            out_root.display()
+        );
     }
 
     let mut args: Vec<String> = vec![
