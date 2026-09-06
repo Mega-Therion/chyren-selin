@@ -58,6 +58,10 @@ pub fn verify_artifact(path: &str, policy: &str, json_stdout: bool, run_id: Opti
         return fail_code(2);
     }
 
+    if !looks_like_formal_artifact(path) {
+        eprintln!("  ⚠ Extension not recognized as a formal artifact; forwarding to MVPC-X anyway — the gate decides.");
+    }
+
     let bin = mvpc_bin();
     // Probe that binary exists
     match Command::new(&bin).arg("--help").output() {
