@@ -1,0 +1,32 @@
+{
+  "repo": "chyren-selin",
+  "schema_version": "1.0.0",
+  "invariants": [
+    {
+      "id": "fmt",
+      "cmd": "cargo fmt --all -- --check",
+      "required": true,
+      "timeout": 300,
+      "why": "cheap and deterministic; the one gate here that needs no build artifacts"
+    },
+    {
+      "id": "clippy-deny-warnings",
+      "cmd": "cargo clippy --workspace --all-targets -- -D warnings",
+      "required": false,
+      "slow": true,
+      "timeout": 3600,
+      "why": "CI runs this with -D warnings. Marked slow because it builds the workspace; NOT observed passing here (the machine is disk-constrained and CLAUDE.md's protocol puts cargo artifacts first in line for reclamation), so it records as SKIPPED, never PASS"
+    },
+    {
+      "id": "workspace-tests",
+      "cmd": "cargo test --workspace --all-targets",
+      "required": false,
+      "slow": true,
+      "timeout": 3600,
+      "why": "same: builds the workspace. SKIPPED here rather than claimed. ARCHON kernel governance logic is shared with chyren-aeon, so a real regression here is cross-repo"
+    }
+  ],
+  "open": [
+    "chyren-selin-1: one-command self-hosted deployment, complete air-gap documentation, and an explicit 'guaranteed vs still-private-core' boundary are not attempted."
+  ]
+}
