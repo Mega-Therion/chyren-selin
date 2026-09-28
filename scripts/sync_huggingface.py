@@ -47,7 +47,7 @@ Local-first, encrypted, fail-closed mathematical verification and autonomous gov
 - **GitHub Source of Truth**: [https://github.com/Mega-Therion/chyren-selin](https://github.com/Mega-Therion/chyren-selin)
 - **Interactive Research Atlas**: [https://resnova-hub-f4ucvy3e.manus.space](https://resnova-hub-f4ucvy3e.manus.space)
 - **Author**: Ryan W. Yett ([ORCID: 0009-0001-1303-7190](https://orcid.org/0009-0001-1303-7190))
-- **LinkedIn**: [R.W. Yett](https://www.linkedin.com/in/r-w-yett-152085293/)
+- **LinkedIn**: [R.W. Yett](https://www.linkedin.com/in/r-w-yett/)
 - **X (Twitter)**: [@_ChyRho_](https://x.com/_chyrho_)
 
 ---
