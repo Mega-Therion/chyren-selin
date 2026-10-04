@@ -8,17 +8,17 @@
   <a href="https://x.com/_chyrho_"><img src="https://img.shields.io/badge/X-@__ChyRho__-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
 </p>
 
-Sovereign AI Governance Node & ARCHON Runtime — Local-first, encrypted, fail-closed mathematical verification.
+Local-first AI governance node and ARCHON runtime. Encrypted, fail-closed mathematical verification.
 
 ![SELIN Local-First Governance Boundary](docs/visuals/selin-local-governance.svg)
 
 ## System Role & Mission
 
-`chyren-selin` is the open, distributable incarnation of the Chyren sovereign intelligence stack. Where `chyren-aeon` is the private unified core, SELIN is designed for self-hosted sovereign deployment: running local-first on user hardware with zero telemetry, encrypted-at-rest state, and fail-closed capability gates.
+`chyren-selin` is the open, distributable build of the Chyren stack. `chyren-aeon` is the private core. SELIN is meant to run on the user's own hardware: local-first, no telemetry, encrypted state, and fail-closed capability gates.
 
 ## Core Architectural Invariants
 
-- **Local Sovereign Boundary**: All personal memory, cryptographic keys, and raw conversation history reside exclusively on local SQLite/encrypted storage.
+- **Local boundary**: All personal memory, cryptographic keys, and raw conversation history reside exclusively on local SQLite/encrypted storage.
 - **Fail-Closed Execution**: If an external connector, model, or policy evaluator is unreachable or degraded, SELIN fails closed: actions are refused rather than executed without oversight.
 - **Strict Connector Capabilities**: External tools operate under fixed capability envelopes (`read_only`, `draft_only`, `write_bounded`). External writes always require local policy approval and an immutable receipt.
 
@@ -47,3 +47,7 @@ cargo test --locked
 # Verify local Node services
 npm test
 ```
+
+## How this was built
+
+R.W. Yett directs the work. Much of the code and prose was written with AI coding assistants; those commits carry `Co-Authored-By` trailers. What holds is what `cargo test` and `npm test` check.
