@@ -3,18 +3,25 @@
 <p align="left">
   <a href="https://huggingface.co/datasets/ChyRho/chyren-selin"><img src="https://img.shields.io/badge/Hugging%20Face-ChyRho%2Fchyren--selin-FFD21E?style=flat-square&logo=huggingface&logoColor=black" alt="Hugging Face Dataset"></a>
   <a href="https://orcid.org/0009-0001-1303-7190"><img src="https://img.shields.io/badge/ORCID-0009--0001--1303--7190-A6CE39?style=flat-square&logo=orcid&logoColor=white" alt="ORCID"></a>
-  <a href="https://resnova-hub-f4ucvy3e.manus.space"><img src="https://img.shields.io/badge/Research%20Atlas-resnova--hub-0070f3?style=flat-square&logo=safari&logoColor=white" alt="Research Atlas"></a>
+  <a href="https://chyren-selin-chyrho.vercel.app"><img src="https://img.shields.io/badge/site-selin-0070f3?style=flat-square&logo=safari&logoColor=white" alt="SELIN site"></a>
+  <a href="https://res-nova-atlas.vercel.app"><img src="https://img.shields.io/badge/Research%20Atlas-res--nova-0070f3?style=flat-square&logo=safari&logoColor=white" alt="Res Nova Atlas"></a>
   <a href="https://www.linkedin.com/in/r-w-yett/"><img src="https://img.shields.io/badge/LinkedIn-R.W._Yett-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
   <a href="https://x.com/_chyrho_"><img src="https://img.shields.io/badge/X-@__ChyRho__-000000?style=flat-square&logo=x&logoColor=white" alt="X"></a>
 </p>
 
-Local-first AI governance node and ARCHON runtime. Encrypted, fail-closed mathematical verification.
+Local-first AI governance node and ARCHON runtime. Encrypted state. Fail-closed gates. Formal artifact checks, when wanted, go through a local MVPC-X install. This repository does not itself run a Lean kernel.
 
 ![SELIN Local-First Governance Boundary](docs/visuals/selin-local-governance.svg)
 
 ## System Role & Mission
 
 `chyren-selin` is the open, distributable build of the Chyren stack. `chyren-aeon` is the private core. SELIN is meant to run on the user's own hardware: local-first, no telemetry, encrypted state, and fail-closed capability gates.
+
+## What is actually checked
+
+`cargo test --locked` covers the ARCHON kernel: the three-tier gate, the ADCCL govern loop, the identity basepoint, and the risk and verifier modules. `npm test` covers the local Node bridge. A passing test means that gate behaved as the test wrote it. It does not mean a model told the truth, and it does not mean a private AEON memory store is in this tree. Personal memory stays in the private core. See `docs/AIR_GAP_POLICY.md`.
+
+The public site is [chyren-selin-chyrho.vercel.app](https://chyren-selin-chyrho.vercel.app). The product name in the docs is Chyren-Archon. The git name is `chyren-selin`.
 
 ## Core Architectural Invariants
 
