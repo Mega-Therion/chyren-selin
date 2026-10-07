@@ -21,7 +21,7 @@ Local-first AI governance node and ARCHON runtime. Encrypted state. Fail-closed 
 
 `cargo test --locked` covers the ARCHON kernel: the three-tier gate, the ADCCL govern loop, the identity basepoint, and the risk and verifier modules. `npm test` covers the local Node bridge. A passing test means that gate behaved as the test wrote it. It does not mean a model told the truth, and it does not mean a private AEON memory store is in this tree. Personal memory stays in the private core. See `docs/AIR_GAP_POLICY.md`.
 
-The public site is [chyren-selin-chyrho.vercel.app](https://chyren-selin-chyrho.vercel.app). The product name in the docs is Chyren-Archon. The git name is `chyren-selin`.
+The public site is [chyren-selin-chyrho.vercel.app](https://chyren-selin-chyrho.vercel.app). The product name in the docs is Chyren-Archon. The GitHub repository is **S.E.L.I.N** (Sovereign Encrypted Localized Identity Nestor; renamed from `chyren-selin`, and old URLs redirect).
 
 ## Core Architectural Invariants
 
@@ -58,3 +58,7 @@ npm test
 ## How this was built
 
 R.W. Yett directs the work. Much of the code and prose was written with AI coding assistants; those commits carry `Co-Authored-By` trailers. What holds is what `cargo test` and `npm test` check.
+
+---
+
+*Part of the **Chyren · Ψ/Φ** constellation, built on the Psimodulo–Phimodus principle: one mind, invariant across substrates, operating as one integrated whole. Author: R.W. Yett · [github.com/Mega-Therion](https://github.com/Mega-Therion).*
